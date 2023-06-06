@@ -54,7 +54,7 @@ namespace Psionics.Buffs
 
             int res = new DiceFormulaEvaluator() { DiceFormula = num }.GetValue();
 
-            evt.DamageModifiers.Add(new Modifier(res, num.ToNumString(0, false), base.Fact, ModifierDescriptor.UntypedStackable));
+            evt.DamageModifiers.Add(new Modifier(res, $"Roll {scale}d8", base.Fact, ModifierDescriptor.UntypedStackable));
         }
 
         public void OnEventDidTrigger(RuleCalculateWeaponStats evt)

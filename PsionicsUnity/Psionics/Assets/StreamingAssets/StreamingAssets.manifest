@@ -1,0 +1,7 @@
+ManifestFileVersion: 0
+CRC: 211510345
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: psionics_assets
+      Dependencies: {}

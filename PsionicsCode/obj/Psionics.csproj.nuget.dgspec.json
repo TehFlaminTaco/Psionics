@@ -1,0 +1,66 @@
+{
+  "format": 1,
+  "restore": {
+    "G:\\Psionics\\PsionicsCode\\Psionics.csproj": {}
+  },
+  "projects": {
+    "G:\\Psionics\\PsionicsCode\\Psionics.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\Psionics\\PsionicsCode\\Psionics.csproj",
+        "projectName": "Psionics",
+        "projectPath": "G:\\Psionics\\PsionicsCode\\Psionics.csproj",
+        "packagesPath": "C:\\Users\\Willi\\.nuget\\packages\\",
+        "outputPath": "G:\\Psionics\\PsionicsCode\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Willi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net472"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net472": {
+            "targetAlias": "net472",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net472": {
+          "targetAlias": "net472",
+          "dependencies": {
+            "AssemblyPublicizer": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[*, )"
+            },
+            "ILRepack.MSBuild.Task": {
+              "target": "Package",
+              "version": "[*, )"
+            },
+            "WW-Blueprint-Core": {
+              "target": "Package",
+              "version": "[*, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

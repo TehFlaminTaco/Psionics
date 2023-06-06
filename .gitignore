@@ -1,0 +1,12 @@
+PsionicsCode/bin
+PsionicsCode/obj
+PsionicsCode/lib
+PsionicsCode/.vs
+
+PsionicsUnity/Psionics/.vscode
+PsionicsUnity/Psionics/Library
+PsionicsUnity/Psionics/Temp
+PsionicsUnity/Psionics/UserSettings
+PsionicsUnity/Psionics/Logs
+PsionicsUnity/Psionics/Assets/StreamingAssets/*
+

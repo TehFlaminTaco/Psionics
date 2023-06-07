@@ -23,6 +23,8 @@ using Psionics.Equipment;
 using Psionics.Feats.Soulknife;
 using Newtonsoft.Json;
 using Psionics.Feats.Soulknife.BladeSkills;
+using Psionics.Resources;
+using BlueprintCore.Utils;
 
 namespace Psionics.Buffs
 {
@@ -66,6 +68,9 @@ namespace Psionics.Buffs
 
                 base.Data.Applied = Blade.CreateEntity<ItemEntityWeapon>();
                 base.Data.Applied.MakeNotLootable();
+                var twinMindBlade = base.Owner.ActivatableAbilities.Enumerable.Where(c => c.Blueprint == TwinMindBlade.BlueprintInstance).FirstOrDefault();
+                bool twinned = twinMindBlade is not null && twinMindBlade.IsOn;
+                Enchant(base.Data.Applied, twinned);
                 if (!base.Owner.Body.PrimaryHand.CanInsertItem(base.Data.Applied))
                 {
                     Main.Logger.Info("Failed to add mind blade! CanInserItem returned false!");
@@ -76,11 +81,11 @@ namespace Psionics.Buffs
                 var hasAlterBlade = base.Owner.HasFact(AlterBladeFeat.BlueprintInstance);
                 if(Shape == "Light" || (Shape == "Sword" && hasAlterBlade))
                 {
-                    var twinMindBlade = base.Owner.ActivatableAbilities.Enumerable.Where(c => c.Blueprint == TwinMindBlade.BlueprintInstance).FirstOrDefault();
-                    if(twinMindBlade is not null && twinMindBlade.IsOn)
+                    if(twinned)
                     {
                         base.Data.Twin = MindBladeItem.BlueprintInstances[0].CreateEntity<ItemEntityWeapon>();
                         base.Data.Twin.MakeNotLootable();
+                        Enchant(base.Data.Twin, twinned);
                     }
                 }
                 if (Shape != "Heavy")
@@ -127,6 +132,26 @@ namespace Psionics.Buffs
                 }
             }
 
+            public void Enchant(ItemEntityWeapon wep, bool twinned)
+            {
+                if (base.Owner.HasFact(EnhancedMindBladeFeat.BlueprintInstance))
+                {
+                    int sparePoints = base.Owner.Resources.GetResource(MindbladeEnhancement.BlueprintInstance).Amount;
+                    if (twinned)
+                        sparePoints--;
+                    if (sparePoints == 0)
+                        return;
+                    if(sparePoints > 0) {
+                        foreach(var ability in base.Owner.ActivatableAbilities.Enumerable.Where(c=>c.IsOn).Select(c=>c.Blueprint).Where(c => EnhanceMindBladeAbility.enchantmentByBlueprint.ContainsKey(c)).Distinct())
+                        {
+                            var ench = EnhanceMindBladeAbility.enchantmentByBlueprint[ability];
+                            wep.AddEnchantment(BlueprintTool.GetRef<BlueprintItemEnchantmentReference>(ench.Target).Get(), null, null);
+                        }
+                        wep.AddEnchantment(BlueprintTool.GetRef<BlueprintItemEnchantmentReference>(EnhanceMindBladeAbility.Enhancement[Math.Min(sparePoints - 1, 4)]).Get(), null, null);
+                    }
+                }
+            }
+
             public override void ApplyValidation(ValidationContext context, int parentIndex)
             {
                 base.ApplyValidation(context, parentIndex);
@@ -135,11 +160,13 @@ namespace Psionics.Buffs
             public override void OnTurnOn()
             {
                 base.Data.Applied?.HoldingSlot.Lock.Retain();
+                base.Data.Twin?.HoldingSlot.Lock.Retain();
             }
 
             public override void OnTurnOff()
             {
                 base.Data.Applied?.HoldingSlot.Lock.Release();
+                base.Data.Twin?.HoldingSlot.Lock.Release();
             }
 
             public void OnAreaActivated()
@@ -156,8 +183,8 @@ namespace Psionics.Buffs
         private static readonly string BuffGUID = "014db534-1f7a-4850-938a-98afd7d6ea2c";
         public static BlueprintBuff BlueprintInstance = null;
 
-        private static readonly string DisplayName = "MindBladeBuff.Name";
-        private static readonly string Description = "MindBladeBuff.Description";
+        private static readonly string DisplayName = "MindBladeBuff.Name".Translate("Formed Mind Blade");
+        private static readonly string Description = "MindBladeBuff.Description".Translate("A Mind Blade has been formed", true);
 
         public static void Configure()
         {

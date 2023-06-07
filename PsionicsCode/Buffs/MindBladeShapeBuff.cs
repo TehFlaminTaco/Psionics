@@ -28,8 +28,8 @@ namespace Psionics.Buffs
             foreach (var Shape in ShapeMindBladeAbility.ShapeNames)
             {
                 BlueprintInstances[fsIndex] = BuffConfigurator.New($"MindBladeShape{Shape}Buff", FeatGUIDs[fsIndex])
-                    .SetDisplayName($"MindBladeShape{Shape}Buff.Name")
-                    .SetDescription($"MindBladeShapeBuff.Description")
+                    .SetDisplayName($"MindBladeShape{Shape}Buff.Name".Translate($"Shaped Mind Blade ({ShapeMindBladeAbility.ShapeTranslations[Shape]})"))
+                    .SetDescription($"ShapeMindBladeAbility.Description")
                     .SetIcon(Icon)
                     .Configure();
                 fsIndex++;

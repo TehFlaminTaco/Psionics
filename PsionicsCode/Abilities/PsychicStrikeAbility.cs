@@ -33,6 +33,7 @@ namespace Psionics.Abilities
                 .SetIcon(Icon)
                 .SetActionType(Kingmaker.UnitLogic.Commands.Base.UnitCommand.CommandType.Move)
                 .SetAnimation(Kingmaker.Visual.Animation.Kingmaker.Actions.UnitAnimationActionCastSpell.CastAnimationStyle.EnchantWeapon)
+                .SetRange(AbilityRange.Personal)
                 .AddComponent(new RequireMindBlade())
                 .AddAbilityEffectRunAction(
                     ActionsBuilder.New()

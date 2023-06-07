@@ -44,6 +44,12 @@ namespace Psionics.Abilities
 
 
         public static readonly string[] ShapeNames = new[] {"Light","Sword","Heavy"};
+        public static readonly Dictionary<string, string> ShapeTranslations = new Dictionary<string, string>()
+        {
+            ["Light"] = "Light",
+            ["Sword"] = "One-Handed",
+            ["Heavy"] = "Two-Handed",
+        };
         private static readonly string[] VariantGUIDs = new[]
         {
             "698ada36-ab6f-4579-82a5-d110e5e9c6c1",

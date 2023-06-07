@@ -74,6 +74,12 @@ namespace Psionics
                     PowerPoints.Configure();
                     PowerPointPool.Configure();
 
+                    MindbladeEnhancement.Configure();
+
+                    EnhanceMindBladeAbility.Configure();
+                    MindbladeEnchantmentFeats.Configure();
+                    EnhancedMindBladeFeat.Configure();
+
                     WildTalentFeat.Configure();
 
                     MindBladeItem.Configure();
@@ -177,6 +183,10 @@ namespace Psionics
                         {
                             Logger.Info($"Can't translate non-string property {c.Name}!");
                         }
+                    }
+                    foreach (var c in TranslateHelper.translations)
+                    {
+                        LocalizationTool.CreateString(c.Key, c.Value.Item1, c.Value.Item2);
                     }
                 }
                 catch (Exception e)

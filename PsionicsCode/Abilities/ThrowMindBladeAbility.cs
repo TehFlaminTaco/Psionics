@@ -30,6 +30,7 @@ using Kingmaker.ElementsSystem;
 using Kingmaker.Items;
 using static Pathfinding.Util.RetainedGizmos;
 using System.Windows.Markup;
+using Kingmaker.Blueprints;
 
 namespace Psionics.Abilities
 {

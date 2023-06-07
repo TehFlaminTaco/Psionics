@@ -19,7 +19,7 @@ namespace Psionics.Classes
     public class Soulknife
     {
         private static readonly string ClassName = "SoulknifeClass";
-        private static readonly string ClassGUID = "c8cf221e-ccd0-4a2b-96c0-261efd0c7e79";
+        public static readonly string ClassGUID = "c8cf221e-ccd0-4a2b-96c0-261efd0c7e79";
         private static readonly string DisplayName = "Soulknife.Name";
         private static readonly string Description = "Soulknife.Description";
         public static BlueprintCharacterClass ClassBlueprint = null;

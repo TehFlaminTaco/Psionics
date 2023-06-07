@@ -14,8 +14,8 @@ namespace Psionics.Buffs
         private static readonly string BuffGUID = "b4116e38-d793-4c8f-a16f-e80220c73de2";
         public static BlueprintBuff BlueprintInstance = null;
 
-        private static readonly string DisplayName = "BladeRushAbility.Name";
-        private static readonly string Description = "BladeRushAbility.Description";
+        private static readonly string DisplayName = "BladeRushAbility.Name".Translate("Blade Rush");
+        private static readonly string Description = "BladeRushAbility.Description".Translate("If you're reading this, Hello!");
         private static readonly string Icon = "assets/icons/bladerush.png";
 
         public static void Configure()

@@ -50,8 +50,8 @@ namespace Psionics.Equipment
             ["Sword"] = new DiceFormula(1, DiceType.D8),
             ["Heavy"] = new DiceFormula(2, DiceType.D6)
         };
-        private static readonly string DisplayName = "MindBlade.Name";
-        private static readonly string Description = "MindBlade.Description";
+        private static readonly string DisplayName = "MindBlade.Name".Translate("Mind Blade");
+        private static readonly string Description = "MindBlade.Description".Translate("A blade formed by a Soulknife");
         private static readonly string Icon = "assets/icons/mindblade.png";
 
         public static void Configure()

@@ -29,7 +29,8 @@ namespace Psionics.Feats.Soulknife
                 .SetAllFeatures(
                     AlterBladeFeat.BlueprintInstance,
                     BladeRushFeat.BlueprintInstance,
-                    BladestormFeat.BlueprintInstance
+                    BladestormFeat.BlueprintInstance,
+                    BladewindFeat.BlueprintInstance
                 )
                 .SetIsClassFeature(true)
                 .Configure();

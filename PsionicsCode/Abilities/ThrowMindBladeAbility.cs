@@ -31,6 +31,7 @@ using Kingmaker.Items;
 using static Pathfinding.Util.RetainedGizmos;
 using System.Windows.Markup;
 using Kingmaker.Blueprints;
+using BlueprintCore.Utils;
 
 namespace Psionics.Abilities
 {
@@ -100,6 +101,8 @@ namespace Psionics.Abilities
             var tossWep = hand.Weapon;
             if (caster.Body.SecondaryHand.HasWeapon && MindBladeItem.TypeInstances.Contains(caster.Body.SecondaryHand.Weapon.Blueprint.Type))
                 tossWep = caster.Body.SecondaryHand.Weapon;
+            var oldProjectiles = tossWep.WeaponVisualParameters.Projectiles;
+            tossWep.WeaponVisualParameters.m_Projectiles = new BlueprintProjectileReference[] { BlueprintTool.GetRef<BlueprintProjectileReference>("dbcc51cfd11fc1441a495daf9df9b340") };
             RuleAttackWithWeapon ruleAttackWithWeapon = new RuleAttackWithWeapon(caster, target, tossWep, attackBonusPenalty)
             {
                 Reason = base.Context,
@@ -117,6 +120,7 @@ namespace Psionics.Abilities
             }
 
             base.Context.TriggerRule(ruleAttackWithWeapon);
+            tossWep.WeaponVisualParameters.m_Projectiles = oldProjectiles;
         }
 
         public static UnitEntityData SelectTarget(UnitEntityData caster, float range, bool selectNewTarget, UnitEntityData target)
@@ -217,9 +221,13 @@ namespace Psionics.Abilities
                                 IgnoreStatBonus = false,
                                 AutoCritThreat = false,
                                 AutoCritConfirmation = false,
-                                ExtraAttack = true
+                                ExtraAttack = true,
+                                name = "$ForcedRangedAction$" + Guid.NewGuid().ToString()
                             })
-                            .Add(new RemoveMindBlade())
+                            .Add(new RemoveMindBlade()
+                            {
+                                name = "$RemoveMindBlade$" + Guid.NewGuid().ToString()
+                            })
                     )
                     .Configure();
             }

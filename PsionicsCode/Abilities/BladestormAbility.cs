@@ -114,10 +114,17 @@ namespace Psionics.Abilities
                             AutoCritThreat = false,
                             AutoCritConfirmation = false,
                             FullAttack = false,
-                            ExtraAttack = true
+                            ExtraAttack = true,
+                            name = "$ForcedRangedAction$" + Guid.NewGuid().ToString()
                         })
-                        .Add(new RemoveMindBlade())
-                        .Add(new SpendPsionicFocus())
+                        .Add(new RemoveMindBlade()
+                        {
+                            name = "$RemoveMindBlade$" + Guid.NewGuid().ToString()
+                        })
+                        .Add(new SpendPsionicFocus()
+                        {
+                            name = "$SpendPsionicFocus$" + Guid.NewGuid().ToString()
+                        })
                 )
                 .Configure();
         }

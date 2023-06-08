@@ -76,7 +76,6 @@ namespace Psionics.Equipment
                     .Configure();
                 BlueprintInstances[fsIndex] = ItemWeaponConfigurator.New($"MindBlade{Shape}Item", ItemGUIDs[fsIndex])
                     .CopyFrom(ShapeToGenericItem[Shape])
-                    .ModifyVisualParameters(c=>c.m_Projectiles = c.m_Projectiles.Append(BlueprintTool.GetRef<BlueprintProjectileReference>("dbcc51cfd11fc1441a495daf9df9b340")).ToArray())
                     .SetType(TypeInstances[fsIndex])
                     .SetDisplayNameText(DisplayName)
                     .SetDescriptionText(Description)

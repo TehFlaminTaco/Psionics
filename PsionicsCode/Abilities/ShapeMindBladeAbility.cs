@@ -64,7 +64,7 @@ namespace Psionics.Abilities
             foreach (var Shape in ShapeNames)
             {
                 FormShapes[fsIndex] = AbilityConfigurator.New($"Reform{Shape}", VariantGUIDs[fsIndex])
-                    .SetDisplayName($"Reform{Shape}.Name")
+                    .SetDisplayName($"Reform{Shape}.Name".Translate($"Reform Mindblade ({ShapeTranslations[Shape]})"))
                     .SetDescription(Description)
                     .SetIcon(Icon)
                     .SetNotOffensive(true)

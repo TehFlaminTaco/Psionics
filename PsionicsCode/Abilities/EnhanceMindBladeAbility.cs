@@ -94,7 +94,7 @@ namespace Psionics.Abilities
             new(){Target = "47857e1a5a3ec1a46adf6491b1423b4f", GUID = "92df386e-f6b9-4268-a1db-930d1bd34aff", Cost = 1, Icon = "assets/icons/ghosttouchmindblade.png", Name = "Ghost Touch"},
             new(){Target = "102a9c8c9b7a75e4fb5844e79deaf4c0", GUID = "07a34756-c61a-4edf-adae-a7531da094b5", Cost = 1, Icon = "assets/icons/enhancedmindblade.png", Name = "Keen"},
             new(){Target = "7bda5277d36ad114f9f9fd21d0dab658", GUID = "22e4571e-5f17-4f61-9fb5-a0b95264f464", Cost = 1, Icon = "assets/icons/shockmindblade.png", Name = "Shock"},
-            new(){Target = "a1455a289da208144981e4b1ef92cc56", GUID = "320f2baf-db18-4f5f-8eee-a8deb1d09896", Cost = 1, Icon = "assets/icons/enhancedmindblade.png", Name = "Vicious"},
+            new(){Target = "a1455a289da208144981e4b1ef92cc56", GUID = "320f2baf-db18-4f5f-8eee-a8deb1d09896", Cost = 1, Icon = "assets/icons/viciousmindblade.png", Name = "Vicious"},
             new(){Target = "57315bc1e1f62a741be0efde688087e9", GUID = "d59be0f4-44f2-429b-ab33-0a0607878147", Cost = 2, Icon = "assets/icons/anarchicmindblade.png", Name = "Anarchic"},
             new(){Target = "0ca43051edefcad4b9b2240aa36dc8d4", GUID = "72aed536-39ec-414b-8545-ab87fd76e051", Cost = 2, Icon = "assets/icons/axiomaticmindblade.png", Name = "Axiomatic"},
             new(){Target = "3f032a3cd54e57649a0cdad0434bf221", GUID = "e14c4bae-454d-4bfd-919c-fa3c64cfe2e9", Cost = 2, Icon = "assets/icons/flamingburstmindblade.png", Name = "Flaming Burst"},

@@ -29,19 +29,23 @@ using Kingmaker.Designers.EventConditionActionSystem.Evaluators;
 using Psionics.Equipment;
 using Psionics.Feats.Soulknife;
 using Kingmaker.UnitLogic.Buffs;
+using Psionics.Abilities;
 
 namespace Psionics.Buffs
 {
     [ComponentName("Psychic strike damage bonus")]
     [TypeId("c307f9e9-8590-4e4a-b486-0fe384d225da")]
     [AllowedOn(typeof(BlueprintUnitFact), false)]
-    public class PsychicStrikeDamageBonus : UnitFactComponentDelegate, IInitiatorRulebookHandler<RuleCalculateWeaponStats>, IRulebookHandler<RuleCalculateWeaponStats>, ISubscriber, IInitiatorRulebookSubscriber, IInitiatorRulebookHandler<RuleCalculateDamage>, IRulebookHandler<RuleCalculateDamage>
+    public class PsychicStrikeDamageBonus : UnitFactComponentDelegate, IInitiatorRulebookHandler<RuleCalculateWeaponStats>, IRulebookHandler<RuleCalculateWeaponStats>, ISubscriber, IInitiatorRulebookSubscriber, IInitiatorRulebookHandler<RuleCalculateDamage>, IRulebookHandler<RuleCalculateDamage>, IAttackHandler
     {
         [FormerlySerializedAs("ScaleWith")]
         public BlueprintFeature m_ScaleWith;
         public void OnEventAboutToTrigger(RuleCalculateWeaponStats evt)
         {
             if (!MindBladeItem.TypeInstances.Contains(evt.Weapon.Blueprint.Type))
+                return;
+            var alternativeSpend = evt.Initiator.ActivatableAbilities.Enumerable.FirstOrDefault(b => b.Blueprint == BladewindSpendPsionicStrikeAbility.BlueprintInstance);
+            if (alternativeSpend != null && alternativeSpend.IsOn)
                 return;
             int scale = 1;
             if (m_ScaleWith is not null && evt.Initiator.HasFact(m_ScaleWith))
@@ -54,13 +58,12 @@ namespace Psionics.Buffs
 
             int res = new DiceFormulaEvaluator() { DiceFormula = num }.GetValue();
 
-            evt.DamageModifiers.Add(new Modifier(res, $"Roll {scale}d8", base.Fact, ModifierDescriptor.UntypedStackable));
+            evt.DamageModifiers.Add(new Modifier(res, $"{scale}d8", base.Fact, ModifierDescriptor.UntypedStackable));
         }
 
         public void OnEventDidTrigger(RuleCalculateWeaponStats evt)
         {
-            ((Buff)base.Fact).Deactivate();
-            ((Buff)base.Fact).Remove();
+            
         }
 
         public void OnEventAboutToTrigger(RuleCalculateDamage evt)
@@ -69,6 +72,18 @@ namespace Psionics.Buffs
 
         public void OnEventDidTrigger(RuleCalculateDamage evt)
         {
+        }
+
+        public void HandleAttackHitRoll(RuleAttackRoll rollAttackHit)
+        {
+            var alternativeSpend = rollAttackHit.Initiator.ActivatableAbilities.Enumerable.FirstOrDefault(b => b.Blueprint == BladewindSpendPsionicStrikeAbility.BlueprintInstance);
+            if (alternativeSpend is not null && alternativeSpend.IsOn && BladewindForcedMeleeAction.IsBladeWinding)
+                return;
+            if (rollAttackHit.IsHit)
+            {
+                ((Buff)base.Fact).Deactivate();
+                ((Buff)base.Fact).Remove();
+            }
         }
     }
 

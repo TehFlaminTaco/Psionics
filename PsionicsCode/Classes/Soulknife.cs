@@ -29,7 +29,6 @@ namespace Psionics.Classes
             ClassBlueprint = CharacterClassConfigurator.New(ClassName, ClassGUID)
                 .SetLocalizedName(DisplayName)
                 .SetLocalizedDescription(Description)
-                .SetLocalizedDescriptionShort(Description)
                 .SetClassSkills(Kingmaker.EntitySystem.Stats.StatType.SkillMobility,
                                 Kingmaker.EntitySystem.Stats.StatType.SkillPersuasion,
                                 Kingmaker.EntitySystem.Stats.StatType.SkillKnowledgeArcana,
@@ -39,11 +38,11 @@ namespace Psionics.Classes
                                           Kingmaker.EntitySystem.Stats.StatType.Dexterity)
                 .SetSkillPoints(3)
                 .SetHitDie(Kingmaker.RuleSystem.DiceType.D10)
-                .SetBaseAttackBonus("b3057560ffff3514299e8b93e7648a9d") // BABFull
-                .SetFortitudeSave("dc0c7c1aba755c54f96c089cdf7d14a3")   // SavesLow
-                .SetReflexSave("ff4662bde9e75f145853417313842751")      // SavesHigh
-                .SetWillSave("ff4662bde9e75f145853417313842751")        // SavesHigh
-                .SetDifficulty(1)
+                .SetBaseAttackBonus(StatProgressionRefs.BABFull.Reference.Get())
+                .SetFortitudeSave(StatProgressionRefs.SavesLow.Reference.Get())
+                .SetReflexSave(StatProgressionRefs.SavesHigh.Reference.Get())      // SavesHigh
+                .SetWillSave(StatProgressionRefs.SavesHigh.Reference.Get())        // SavesHigh
+                .SetDifficulty(2)
                 .SetPrimaryColor(61)
                 .SetSecondaryColor(54)
                 .SetProgression(SoulknifeProgression.ProgressionBlueprint)
@@ -55,11 +54,10 @@ namespace Psionics.Classes
                 .AddPrerequisiteIsPet(false, Kingmaker.Blueprints.Classes.Prerequisites.Prerequisite.GroupType.All, true, true)
                 .SetMaleEquipmentEntities("1f538abc2802c5649b7ce177183f88c8", "54de61e669f916543b96da841357d2ff")   // Rogue Clothes
                 .SetFemaleEquipmentEntities("dc822f0446c675a45809202953fa52a7", "67d82fc7662a522449d5dc8ed622e33a")
-                .SetStartingItems("afbe88d27a0eb544583e00fa78ffb2c7", // Studded Leather
-                                  "d52566ae8cbe8dc4dae977ef51c27d91", // Potion of Cure Light Wounds
-                                  "d52566ae8cbe8dc4dae977ef51c27d91", // ^
-                                  "d52566ae8cbe8dc4dae977ef51c27d91"  // ^
-
+                .SetStartingItems(ItemArmorRefs.StuddedStandard.Reference.Get(),
+                                  ItemEquipmentUsableRefs.PotionOfCureLightWounds.Reference.Get(),
+                                  ItemEquipmentUsableRefs.PotionOfCureLightWounds.Reference.Get(),
+                                  ItemEquipmentUsableRefs.PotionOfCureLightWounds.Reference.Get()
                 )
                 .SetStartingGold(411)
                 .Configure();

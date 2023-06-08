@@ -3,6 +3,7 @@ using Kingmaker.Blueprints.Classes;
 using Psionics.Buffs;
 using Psionics.Feats;
 using Psionics.Feats.Soulknife;
+using Psionics.Feats.Soulknife.BladeSkills;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,15 +32,15 @@ namespace Psionics.Classes
                .SetLevelEntry(04, BladeSkillsFeat.BlueprintInstance)
                .SetLevelEntry(05, SoulknifeQuickDraw.BlueprintInstance, EnhancedMindBladeFeat.BlueprintInstance, MindbladeEnchantmentFeats.BlueprintInstances[0])
                .SetLevelEntry(06, BladeSkillsFeat.BlueprintInstance)
-               .SetLevelEntry(07, PsychicStrikeFeat.BlueprintInstance, EnhancedMindBladeFeat.BlueprintInstance, MindbladeEnchantmentFeats.BlueprintInstances[1])
+               .SetLevelEntry(07, PsychicStrikeFeat.BlueprintInstance, EnhancedMindBladeFeat.BlueprintInstance)
                .SetLevelEntry(08, BladeSkillsFeat.BlueprintInstance)
-               .SetLevelEntry(09, EnhancedMindBladeFeat.BlueprintInstance)
+               .SetLevelEntry(09, EnhancedMindBladeFeat.BlueprintInstance, MindbladeEnchantmentFeats.BlueprintInstances[1])
                .SetLevelEntry(10, BladeSkillsFeat.BlueprintInstance)
                .SetLevelEntry(11, PsychicStrikeFeat.BlueprintInstance, EnhancedMindBladeFeat.BlueprintInstance)
-               .SetLevelEntry(12, BladeSkillsFeat.BlueprintInstance, MindbladeEnchantmentFeats.BlueprintInstances[2])
+               .SetLevelEntry(12, BladeSkillsFeat.BlueprintInstance)
                .SetLevelEntry(13, EnhancedMindBladeFeat.BlueprintInstance)
                .SetLevelEntry(14, BladeSkillsFeat.BlueprintInstance)
-               .SetLevelEntry(15, PsychicStrikeFeat.BlueprintInstance, EnhancedMindBladeFeat.BlueprintInstance)
+               .SetLevelEntry(15, PsychicStrikeFeat.BlueprintInstance, EnhancedMindBladeFeat.BlueprintInstance, MindbladeEnchantmentFeats.BlueprintInstances[2])
                .SetLevelEntry(16, BladeSkillsFeat.BlueprintInstance)
                .SetLevelEntry(17, EnhancedMindBladeFeat.BlueprintInstance)
                .SetLevelEntry(18, BladeSkillsFeat.BlueprintInstance)

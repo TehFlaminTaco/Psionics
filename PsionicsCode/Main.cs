@@ -106,6 +106,10 @@ namespace Psionics
                     BladeRushFeat.Configure();
                     BladestormAbility.Configure();
                     BladestormFeat.Configure();
+                    BladewindSpendPsionicStrikeAbility.Configure();
+                    BladewindAbility.Configure();
+                    BladewindFeat.Configure();
+
                     BladeSkillsFeat.Configure();
 
                     SoulknifeProgression.Configure();

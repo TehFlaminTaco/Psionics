@@ -6,7 +6,6 @@ using Kingmaker.PubSubSystem;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Kingmaker.UnitLogic.Buffs.Components;
 using Kingmaker.UnitLogic.Class.Kineticist;
-using Psionics.Abilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +24,7 @@ using Newtonsoft.Json;
 using Psionics.Feats.Soulknife.BladeSkills;
 using Psionics.Resources;
 using BlueprintCore.Utils;
+using Psionics.Abilities.Soulknife;
 
 namespace Psionics.Buffs
 {

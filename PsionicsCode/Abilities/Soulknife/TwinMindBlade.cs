@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Psionics.Abilities
+namespace Psionics.Abilities.Soulknife
 {
     public class TwinMindBlade
     {

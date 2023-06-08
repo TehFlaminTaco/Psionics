@@ -31,7 +31,7 @@ using Psionics.Feats.Soulknife.BladeSkills;
 using Psionics.Feats.Soulknife;
 using Kingmaker.Blueprints.Items.Weapons;
 
-namespace Psionics.Abilities
+namespace Psionics.Abilities.Soulknife
 {
     public class FormMindBladeAbility
     {
@@ -60,8 +60,8 @@ namespace Psionics.Abilities
             {
                 //Main.Logger.Info($"HandleEquipmentSlotUpdated Change Weapon: SlotDataNull: {__instance.GetSlotData(slot) == null} Had: {MindBladeItem.TypeInstances.Contains((previousItem?.Blueprint as BlueprintItemWeapon)?.Type) && !(slot.HasWeapon && MindBladeItem.TypeInstances.Contains(slot.Weapon.Blueprint.Type))} IsPrimary: {slot.IsPrimaryHand} MindBlade: {slot.HasWeapon && MindBladeItem.TypeInstances.Contains(slot.Weapon.Blueprint.Type)}");
                 if (!__instance.Active || __instance.GetSlotData(slot) == null) { return true; }
-                    
-                if (((MindBladeItem.TypeInstances.Contains((previousItem?.Blueprint as BlueprintItemWeapon)?.Type) && !(slot.HasWeapon && MindBladeItem.TypeInstances.Contains(slot.Weapon.Blueprint.Type))) || (__instance.Owner.HasFact(SoulknifeQuickDraw.BlueprintInstance) && (slot.IsPrimaryHand ? slot.HasWeapon && MindBladeItem.TypeInstances.Contains(slot.Weapon.Blueprint.Type) : true)))
+
+                if ((MindBladeItem.TypeInstances.Contains((previousItem?.Blueprint as BlueprintItemWeapon)?.Type) && !(slot.HasWeapon && MindBladeItem.TypeInstances.Contains(slot.Weapon.Blueprint.Type)) || __instance.Owner.HasFact(SoulknifeQuickDraw.BlueprintInstance) && (slot.IsPrimaryHand ? slot.HasWeapon && MindBladeItem.TypeInstances.Contains(slot.Weapon.Blueprint.Type) : true))
                     && __instance.InCombat
                     && (__instance.Owner.State.CanAct || __instance.IsDollRoom)
                     && slot.Active)
@@ -79,7 +79,7 @@ namespace Psionics.Abilities
             {
                 //Main.Logger.Info($"HandleEquipmentSetChanged Change Weapon! Has: {__instance.Owner.Body.PrimaryHand.HasItem} Buff: {__instance.Owner.Buffs.Enumerable.Select(c => c.Blueprint).Any(c => c == MindBladeBuff.BlueprintInstance)} MindBlade: {__instance.Owner.Body.PrimaryHand.HasWeapon && MindBladeItem.TypeInstances.Contains(__instance.Owner.Body.PrimaryHand.Weapon.Blueprint.Type)}");
                 if (!__instance.Active) { return true; }
-                if (((!__instance.Owner.Body.PrimaryHand.HasItem && __instance.Owner.Buffs.Enumerable.Select(c=>c.Blueprint).Any(c=>c==MindBladeBuff.BlueprintInstance)) || (__instance.Owner.HasFact(SoulknifeQuickDraw.BlueprintInstance) && __instance.Owner.Body.PrimaryHand.HasWeapon && MindBladeItem.TypeInstances.Contains(__instance.Owner.Body.PrimaryHand.Weapon.Blueprint.Type)))
+                if ((!__instance.Owner.Body.PrimaryHand.HasItem && __instance.Owner.Buffs.Enumerable.Select(c => c.Blueprint).Any(c => c == MindBladeBuff.BlueprintInstance) || __instance.Owner.HasFact(SoulknifeQuickDraw.BlueprintInstance) && __instance.Owner.Body.PrimaryHand.HasWeapon && MindBladeItem.TypeInstances.Contains(__instance.Owner.Body.PrimaryHand.Weapon.Blueprint.Type))
                     && __instance.InCombat
                     && (__instance.Owner.State.CanAct || __instance.IsDollRoom))
                 {
@@ -96,12 +96,13 @@ namespace Psionics.Abilities
             {
                 //Main.Logger.Info($"TurnController Change Weapon! State: {state} Has: {__instance.SelectedUnit.Body.PrimaryHand.HasItem} Buff: {__instance.SelectedUnit.Buffs.Enumerable.Select(c => c.Blueprint).Any(c => c == MindBladeBuff.BlueprintInstance)} MindBlade: {__instance.SelectedUnit.Body.PrimaryHand.HasWeapon && MindBladeItem.TypeInstances.Contains(__instance.SelectedUnit.Body.PrimaryHand.Weapon.Blueprint.Type)}");
                 if (state
-                    && ((!__instance.SelectedUnit.Body.PrimaryHand.HasItem && __instance.SelectedUnit.Buffs.Enumerable.Select(c => c.Blueprint).Any(c => c == MindBladeBuff.BlueprintInstance)) || (__instance.SelectedUnit.HasFact(SoulknifeQuickDraw.BlueprintInstance) && __instance.SelectedUnit.Body.PrimaryHand.HasWeapon && MindBladeItem.TypeInstances.Contains(__instance.SelectedUnit.Body.PrimaryHand.Weapon.Blueprint.Type))))
+                    && (!__instance.SelectedUnit.Body.PrimaryHand.HasItem && __instance.SelectedUnit.Buffs.Enumerable.Select(c => c.Blueprint).Any(c => c == MindBladeBuff.BlueprintInstance) || __instance.SelectedUnit.HasFact(SoulknifeQuickDraw.BlueprintInstance) && __instance.SelectedUnit.Body.PrimaryHand.HasWeapon && MindBladeItem.TypeInstances.Contains(__instance.SelectedUnit.Body.PrimaryHand.Weapon.Blueprint.Type)))
                 {
                     __instance.GetActionsStates(__instance.SelectedUnit).Clear();
                     __instance.GetActionsStates(__instance.SelectedUnit).Free
                         .SetPrediction(CombatAction.UsageType.ChangeWeapon, CombatAction.ActivityType.Ability, CombatAction.ActivityState.WillBeUsed, null, null);
-                    EventBus.RaiseEvent(delegate (IActionsPredictionHandler h) {
+                    EventBus.RaiseEvent(delegate (IActionsPredictionHandler h)
+                    {
                         h.PredictionChanged();
                     }, true);
                     return false;

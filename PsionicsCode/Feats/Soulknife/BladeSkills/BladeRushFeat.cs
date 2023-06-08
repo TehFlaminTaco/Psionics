@@ -3,7 +3,7 @@ using BlueprintCore.Utils;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Prerequisites;
-using Psionics.Abilities;
+using Psionics.Abilities.Soulknife.Bladeskills;
 using Psionics.Classes;
 using System;
 using System.Collections.Generic;

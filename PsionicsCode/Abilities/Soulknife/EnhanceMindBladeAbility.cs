@@ -22,7 +22,7 @@ using UnityEngine.Serialization;
 using static Kingmaker.Kingdom.Settlements.BuildingComponents.BuildingTacticalUnitFactBonus;
 using static Kingmaker.UnitLogic.ActivatableAbilities.ActivatableAbility;
 
-namespace Psionics.Abilities
+namespace Psionics.Abilities.Soulknife
 {
     [AllowedOn(typeof(BlueprintActivatableAbility), false)]
     [TypeId("5007f4aa-63f1-450b-98fd-ce1231f35cce")]
@@ -38,12 +38,12 @@ namespace Psionics.Abilities
         private static uint Freebies = 0;
         public void HandleActivatableAbilityStart(ActivatableAbility ability)
         {
-            if (ability != this.Fact) return;
-            if (base.Owner.Resources.HasEnoughResource(m_Resource, m_Cost + m_MinimumOverhead))
+            if (ability != Fact) return;
+            if (Owner.Resources.HasEnoughResource(m_Resource, m_Cost + m_MinimumOverhead))
             {
                 Main.Logger.Info("Spending Points!");
-                base.Owner.Resources.Spend(m_Resource, m_Cost);
-                
+                Owner.Resources.Spend(m_Resource, m_Cost);
+
             }
             else
             {
@@ -53,20 +53,21 @@ namespace Psionics.Abilities
             }
         }
 
-        public void HandleActivatableAbilityWillStop(ActivatableAbility ability){
-            if (ability != this.Fact) return;
+        public void HandleActivatableAbilityWillStop(ActivatableAbility ability)
+        {
+            if (ability != Fact) return;
             if (Freebies > 0)
             {
                 Freebies--;
                 return;
             }
             Main.Logger.Info("Refunding Points!");
-            base.Owner.Resources.Restore(m_Resource, m_Cost);
+            Owner.Resources.Restore(m_Resource, m_Cost);
         }
 
         public override bool IsAvailable()
         {
-            return this.Fact.IsOn || base.Owner.Resources.HasEnoughResource(m_Resource, m_Cost + m_MinimumOverhead);
+            return Fact.IsOn || Owner.Resources.HasEnoughResource(m_Resource, m_Cost + m_MinimumOverhead);
         }
     }
 

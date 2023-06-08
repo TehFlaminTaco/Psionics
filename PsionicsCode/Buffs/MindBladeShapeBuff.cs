@@ -2,7 +2,7 @@
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
-using Psionics.Abilities;
+using Psionics.Abilities.Soulknife;
 using System;
 using System.Collections.Generic;
 using System.Linq;

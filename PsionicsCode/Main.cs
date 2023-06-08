@@ -16,6 +16,8 @@ using Psionics.Buffs;
 using Psionics.Equipment;
 using System.Reflection;
 using Psionics.Feats.Soulknife.BladeSkills;
+using Psionics.Abilities.Soulknife;
+using Psionics.Abilities.Soulknife.Bladeskills;
 
 namespace Psionics
 {

@@ -1,6 +1,6 @@
 ﻿using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using Kingmaker.Blueprints.Classes;
-using Psionics.Abilities;
+using Psionics.Abilities.Soulknife;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

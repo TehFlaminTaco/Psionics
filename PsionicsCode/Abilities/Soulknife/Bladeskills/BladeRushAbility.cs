@@ -38,7 +38,7 @@ using Kingmaker.ResourceLinks;
 using BlueprintCore.Utils;
 using Kingmaker.Blueprints;
 
-namespace Psionics.Abilities
+namespace Psionics.Abilities.Soulknife.Bladeskills
 {
     public class AbilityCustomBladeRush : AbilityCustomLogic
     {
@@ -65,8 +65,10 @@ namespace Psionics.Abilities
             var prefMoved = caster.CombatState.TBM.TimeMoved;
 
             caster.View.StopMoving();
-            if (!CombatController.IsInTurnBasedCombat()) {
-                caster.View.AgentASP.FindPath(endPoint, (path) => {
+            if (!CombatController.IsInTurnBasedCombat())
+            {
+                caster.View.AgentASP.FindPath(endPoint, (path) =>
+                {
                     path.BlockUntilCalculated();
                     var targetPosition = path.vectorPath.Last();
                     caster.CombatState.PreventAttacksOfOpporunityNextFrame = true;
@@ -93,7 +95,7 @@ namespace Psionics.Abilities
                 yield return null;
             }
             caster.SetBuffDuration(BladeRushBuff.BlueprintInstance, 0f);
-            if(caster.IsCurrentUnit())
+            if (caster.IsCurrentUnit())
                 Game.Instance.TurnBasedCombatController.CurrentTurn.m_RiderMovementStats.TimeMoved = prefMoved;
         }
 
@@ -105,7 +107,7 @@ namespace Psionics.Abilities
             {
                 UnitMovementAgent agentASP = caster.View.AgentASP;
                 float timeSinceStart = 0f;
-                while (agentASP!=null && agentASP.EstimatedTimeLeft > 0)
+                while (agentASP != null && agentASP.EstimatedTimeLeft > 0)
                 {
                     if ((bool)Game.Instance.TurnBasedCombatController.WaitingForUI)
                     {
@@ -236,7 +238,7 @@ namespace Psionics.Abilities
     {
         static bool Prefix(UnitViewHandsEquipment __instance, ref Feet __result, ref bool reach, ref AbilityData abilityData)
         {
-            if(abilityData.Blueprint == BladeRushAbility.BlueprintInstance)
+            if (abilityData.Blueprint == BladeRushAbility.BlueprintInstance)
             {
                 __result = BlueprintAbility.GetDoubleMoveRange(abilityData) / 2;
                 return false;

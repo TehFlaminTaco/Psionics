@@ -36,7 +36,7 @@ using Kingmaker.UnitLogic.Buffs;
 using Microsoft.Build.Utilities;
 using System.Runtime.Remoting.Contexts;
 
-namespace Psionics.Abilities
+namespace Psionics.Abilities.Soulknife.Bladeskills
 {
     [TypeId("9dc00f83-581d-4760-85e2-374cddb452ea")]
     public class BladewindForcedMeleeAction : ContextAction
@@ -50,7 +50,7 @@ namespace Psionics.Abilities
 
         public override void RunAction()
         {
-            UnitEntityData maybeCaster = base.Context.MaybeCaster;
+            UnitEntityData maybeCaster = Context.MaybeCaster;
             if (maybeCaster == null)
             {
                 PFLog.Default.Error("Caster is missing");
@@ -64,7 +64,7 @@ namespace Psionics.Abilities
                 return;
             }
 
-            UnitEntityData unitEntityData = SelectTarget(base.Context.MaybeCaster, new Feet(5).Meters, false, base.Target?.Unit);
+            UnitEntityData unitEntityData = SelectTarget(Context.MaybeCaster, new Feet(5).Meters, false, Target?.Unit);
             if (!(unitEntityData != null))
             {
                 return;
@@ -86,7 +86,8 @@ namespace Psionics.Abilities
                     }
                 }
             }
-            finally { 
+            finally
+            {
                 IsBladeWinding = false;
             }
         }
@@ -98,7 +99,7 @@ namespace Psionics.Abilities
                 tossWep = caster.Body.SecondaryHand.Weapon;
             RuleAttackWithWeapon ruleAttackWithWeapon = new RuleAttackWithWeapon(caster, target, tossWep, attackBonusPenalty)
             {
-                Reason = base.Context,
+                Reason = Context,
                 AutoHit = false,
                 AutoCriticalThreat = false,
                 AutoCriticalConfirmation = false,
@@ -108,7 +109,7 @@ namespace Psionics.Abilities
                 AttacksCount = attacksCount
             };
 
-            return base.Context.TriggerRule(ruleAttackWithWeapon);
+            return Context.TriggerRule(ruleAttackWithWeapon);
         }
 
         public static UnitEntityData SelectTarget(UnitEntityData caster, float range, bool selectNewTarget, UnitEntityData target)
@@ -123,8 +124,9 @@ namespace Psionics.Abilities
         }
     }
 
-    public class BladewindAbility {
-    
+    public class BladewindAbility
+    {
+
         public static BlueprintAbility BlueprintInstance = null;
         private static readonly string AbilityName = "BladewindName";
         private static readonly string AbilityGUID = "9a0fbd43-0dd0-4337-b252-a75fe22f84f2";

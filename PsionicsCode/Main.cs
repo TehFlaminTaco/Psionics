@@ -111,6 +111,7 @@ namespace Psionics
                     BladewindSpendPsionicStrikeAbility.Configure();
                     BladewindAbility.Configure();
                     BladewindFeat.Configure();
+                    MindShield.Configure();
 
                     BladeSkillsFeat.Configure();
 

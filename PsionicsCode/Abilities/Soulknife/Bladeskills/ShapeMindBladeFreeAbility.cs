@@ -28,13 +28,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Psionics.Abilities
+namespace Psionics.Abilities.Soulknife.Bladeskills
 {
     public class ShapeMindBladeFreeAbility
     {
         private static readonly string AbilityName = "ShapeMindBladeFreeAbility";
         private static readonly string AbilityGUID = "828737f1-ea8d-46b0-beb1-c8f62049d406";
-        
+
         public static BlueprintAbility[] FormShapes = null;
         public static BlueprintAbility BlueprintInstance = null;
 
@@ -43,7 +43,7 @@ namespace Psionics.Abilities
         private static readonly string Icon = "assets/icons/shapemindblade.png";
 
 
-        public static readonly string[] ShapeNames = new[] {"Light","Sword","Heavy"};
+        public static readonly string[] ShapeNames = new[] { "Light", "Sword", "Heavy" };
         private static readonly string[] VariantGUIDs = new[]
         {
             "6d4b61aa-5134-4d24-9d4d-d7b34837d876",
@@ -85,7 +85,7 @@ namespace Psionics.Abilities
                     new Kingmaker.Utility.Cacheable<Kingmaker.UnitLogic.Abilities.Components.AbilityVariants>()
                 )
                 .AddAbilityVariants(
-                   FormShapes.Select(c=>(BlueprintCore.Utils.Blueprint<BlueprintAbilityReference>)c.ToReference<BlueprintAbilityReference>()).ToList()
+                   FormShapes.Select(c => (BlueprintCore.Utils.Blueprint<BlueprintAbilityReference>)c.ToReference<BlueprintAbilityReference>()).ToList()
                 )
                 .Configure();
         }

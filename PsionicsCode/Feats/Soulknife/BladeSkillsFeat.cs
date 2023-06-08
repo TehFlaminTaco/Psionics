@@ -30,7 +30,8 @@ namespace Psionics.Feats.Soulknife
                     AlterBladeFeat.BlueprintInstance,
                     BladeRushFeat.BlueprintInstance,
                     BladestormFeat.BlueprintInstance,
-                    BladewindFeat.BlueprintInstance
+                    BladewindFeat.BlueprintInstance,
+                    MindShield.BlueprintInstance
                 )
                 .SetIsClassFeature(true)
                 .Configure();

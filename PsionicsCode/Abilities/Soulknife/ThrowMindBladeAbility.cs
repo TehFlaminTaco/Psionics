@@ -33,7 +33,7 @@ using System.Windows.Markup;
 using Kingmaker.Blueprints;
 using BlueprintCore.Utils;
 
-namespace Psionics.Abilities
+namespace Psionics.Abilities.Soulknife
 {
     [TypeId("44a76118-ec2a-4725-a9fc-8fd8300c5743")]
     public class ForcedRangedAction : ContextAction
@@ -59,7 +59,7 @@ namespace Psionics.Abilities
 
         public override void RunAction()
         {
-            UnitEntityData maybeCaster = base.Context.MaybeCaster;
+            UnitEntityData maybeCaster = Context.MaybeCaster;
             if (maybeCaster == null)
             {
                 PFLog.Default.Error("Caster is missing");
@@ -73,7 +73,7 @@ namespace Psionics.Abilities
                 return;
             }
 
-            UnitEntityData unitEntityData = SelectTarget(base.Context.MaybeCaster, new Feet(20).Meters, SelectNewTarget, base.Target?.Unit);
+            UnitEntityData unitEntityData = SelectTarget(Context.MaybeCaster, new Feet(20).Meters, SelectNewTarget, Target?.Unit);
             if (!(unitEntityData != null))
             {
                 return;
@@ -105,7 +105,7 @@ namespace Psionics.Abilities
             tossWep.WeaponVisualParameters.m_Projectiles = new BlueprintProjectileReference[] { BlueprintTool.GetRef<BlueprintProjectileReference>("dbcc51cfd11fc1441a495daf9df9b340") };
             RuleAttackWithWeapon ruleAttackWithWeapon = new RuleAttackWithWeapon(caster, target, tossWep, attackBonusPenalty)
             {
-                Reason = base.Context,
+                Reason = Context,
                 AutoHit = AutoHit,
                 AutoCriticalThreat = AutoCritThreat,
                 AutoCriticalConfirmation = AutoCritConfirmation,
@@ -119,7 +119,7 @@ namespace Psionics.Abilities
                 ruleAttackWithWeapon.WeaponStats.OverrideDamageBonusStatMultiplier(0f);
             }
 
-            base.Context.TriggerRule(ruleAttackWithWeapon);
+            Context.TriggerRule(ruleAttackWithWeapon);
             tossWep.WeaponVisualParameters.m_Projectiles = oldProjectiles;
         }
 
@@ -210,7 +210,7 @@ namespace Psionics.Abilities
                     .SetCanTargetPoint(false)
                     .SetCanTargetSelf(false)
                     .SetIcon(Icon)
-                    .SetCustomRange(20 - (i * 5))
+                    .SetCustomRange(20 - i * 5)
                     .SetAnimation(Kingmaker.Visual.Animation.Kingmaker.Actions.UnitAnimationActionCastSpell.CastAnimationStyle.Thrown)
                     .AddAbilityEffectRunAction(
                         ActionsBuilder.New()

@@ -7,7 +7,7 @@ using Kingmaker.Blueprints.Items.Weapons;
 using Kingmaker.RuleSystem;
 using Kingmaker.RuleSystem.Rules.Damage;
 using Kingmaker.Utility;
-using Psionics.Abilities;
+using Psionics.Abilities.Soulknife;
 using System;
 using System.Collections.Generic;
 using System.Linq;

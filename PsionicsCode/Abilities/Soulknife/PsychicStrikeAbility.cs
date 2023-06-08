@@ -2,6 +2,7 @@
 using BlueprintCore.Actions.Builder.ContextEx;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
+using Psionics.Abilities.Soulknife.Bladeskills;
 using Psionics.Buffs;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Psionics.Abilities
+namespace Psionics.Abilities.Soulknife
 {
     public class PsychicStrikeAbility
     {

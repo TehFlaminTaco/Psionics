@@ -33,7 +33,7 @@ using Kingmaker.UnitLogic.Abilities.Components.Base;
 using UnityEngine.Serialization;
 using Kingmaker.Blueprints;
 
-namespace Psionics.Abilities
+namespace Psionics.Abilities.Soulknife.Bladeskills
 {
     [TypeId("0a621433-0ef2-463d-a426-aa565d6b05cb")]
     public class RequireMindBlade : BlueprintComponent, IAbilityCasterRestriction
@@ -51,10 +51,10 @@ namespace Psionics.Abilities
 
         public bool IsCasterRestrictionPassed(UnitEntityData caster)
         {
-            foreach(var blade in (new[] { caster.Body.PrimaryHand.HasWeapon ? caster.Body.PrimaryHand.Weapon : null, caster.Body.SecondaryHand.HasWeapon ? caster.Body.SecondaryHand.Weapon : null }).Where(c => c != null).Distinct())
+            foreach (var blade in (new[] { caster.Body.PrimaryHand.HasWeapon ? caster.Body.PrimaryHand.Weapon : null, caster.Body.SecondaryHand.HasWeapon ? caster.Body.SecondaryHand.Weapon : null }).Where(c => c != null).Distinct())
             {
                 var bladeType = blade.Blueprint.Type;
-                if(bladeType == MindBladeItem.BlueprintInstances[0])
+                if (bladeType == MindBladeItem.BlueprintInstances[0])
                     return m_AllowLight;
                 if (bladeType == MindBladeItem.BlueprintInstances[1])
                     return m_AllowSword;
@@ -66,8 +66,9 @@ namespace Psionics.Abilities
         }
     }
 
-    public class BladestormAbility {
-    
+    public class BladestormAbility
+    {
+
         public static BlueprintAbility BlueprintInstance = null;
         private static readonly string AbilityName = "BladestormAbility";
         private static readonly string AbilityGUID = "783f1c02-4ffc-495b-837a-59737d95773b";

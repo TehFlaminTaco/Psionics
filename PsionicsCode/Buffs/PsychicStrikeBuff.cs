@@ -29,7 +29,7 @@ using Kingmaker.Designers.EventConditionActionSystem.Evaluators;
 using Psionics.Equipment;
 using Psionics.Feats.Soulknife;
 using Kingmaker.UnitLogic.Buffs;
-using Psionics.Abilities;
+using Psionics.Abilities.Soulknife.Bladeskills;
 
 namespace Psionics.Buffs
 {

@@ -18,6 +18,7 @@ using Kingmaker.UI;
 using Kingmaker.UnitLogic;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Mechanics.Actions;
+using Kingmaker.UnitLogic.Mechanics.Components;
 using Psionics.Buffs;
 using Psionics.Classes;
 using Psionics.Equipment;
@@ -63,6 +64,7 @@ namespace Psionics.Abilities.Soulknife.Bladeskills
                     .SetIcon(Icon)
                     .SetNotOffensive(true)
                     .SetCanTargetSelf(true)
+                    .AddComponent<HideDCFromTooltip>()
                     .SetRange(AbilityRange.Personal)
                     .SetActionType(Kingmaker.UnitLogic.Commands.Base.UnitCommand.CommandType.Free)
                     .SetAnimation(Kingmaker.Visual.Animation.Kingmaker.Actions.UnitAnimationActionCastSpell.CastAnimationStyle.EnchantWeapon)
@@ -81,6 +83,7 @@ namespace Psionics.Abilities.Soulknife.Bladeskills
                 .SetDisplayName(DisplayName)
                 .SetDescription(ShapeMindBladeAbility.Description)
                 .SetIcon(Icon)
+                .AddComponent<HideDCFromTooltip>()
                 .SetAbilityVariants(
                     new Kingmaker.Utility.Cacheable<Kingmaker.UnitLogic.Abilities.Components.AbilityVariants>()
                 )

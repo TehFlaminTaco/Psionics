@@ -35,6 +35,8 @@ using Kingmaker.Blueprints;
 using Kingmaker.UnitLogic.Buffs;
 using Microsoft.Build.Utilities;
 using System.Runtime.Remoting.Contexts;
+using static Kingmaker.UI.Context.MenuItem;
+using Kingmaker.UnitLogic.Mechanics.Components;
 
 namespace Psionics.Abilities.Soulknife.Bladeskills
 {
@@ -144,16 +146,16 @@ namespace Psionics.Abilities.Soulknife.Bladeskills
             BlueprintInstance = AbilityConfigurator.New(AbilityName, AbilityGUID)
                 .SetDisplayName(DisplayName)
                 .SetDescription(Description)
-                .AddComponent(new AbilityTargetsAround()
-                {
-                    m_Radius = 5.Feet(),
-                    m_TargetType = TargetType.Enemy,
-                    m_IncludeDead = false,
-                    m_SpreadSpeed = 0.Feet(),
-                    m_Flags = 0,
-                    m_Condition = new ConditionsChecker()
+                .AddComponent<AbilityTargetsAround>(bp => {
+                    bp.m_Radius = 5.Feet();
+                    bp.m_TargetType = TargetType.Enemy;
+                    bp.m_IncludeDead = false;
+                    bp.m_SpreadSpeed = 0.Feet();
+                    bp.m_Flags = 0;
+                    bp.m_Condition = new ConditionsChecker();
                 })
-                .AddComponent(new RequireMindBlade())
+                .AddComponent<RequireMindBlade>()
+                .AddComponent<HideDCFromTooltip>()
                 .SetIcon(Icon)
                 .SetActionType(Kingmaker.UnitLogic.Commands.Base.UnitCommand.CommandType.Standard)
                 .SetIsFullRoundAction(true)

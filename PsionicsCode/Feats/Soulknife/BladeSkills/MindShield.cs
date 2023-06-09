@@ -21,7 +21,7 @@ namespace Psionics.Feats.Soulknife.BladeSkills
     [ComponentName("Mind Shield AC Bonus")]
     [AllowedOn(typeof(BlueprintUnitFact), false)]
     [TypeId("575381ab-dc4f-4430-a0d4-0d455cf3a50d")]
-    public class MindShieldBonus : UnitFactComponentDelegate, IUnitActiveEquipmentSetHandler, IGlobalSubscriber, ISubscriber, IUnitEquipmentHandler
+    public class MindShieldBonus : UnitFactComponentDelegate, IUnitActiveEquipmentSetHandler, IGlobalSubscriber, ISubscriber, IUnitEquipmentHandler, IRulebookHandler<RuleCalculateAC>
     {
         public override void OnTurnOn()
         {
@@ -38,9 +38,17 @@ namespace Psionics.Feats.Soulknife.BladeSkills
                 this.CheckShield();
             }
         }
+        private bool NeedShield()
+        {
+            if (base.Owner.Body.PrimaryHand.HasWeapon && base.Owner.Body.PrimaryHand.Weapon.HoldInTwoHands) return false;
+            if (base.Owner.Body.SecondaryHand.HasWeapon && base.Owner.Body.SecondaryHand.Weapon.HoldInTwoHands) return false;
+            if (!base.Owner.Body.PrimaryHand.HasItem) return true;
+            if (!base.Owner.Body.SecondaryHand.HasItem) return true;
+            return false;
+        }
         private void CheckShield()
         {
-            if (!base.Owner.Body.SecondaryHand.HasItem || !base.Owner.Body.PrimaryHand.HasItem)
+            if (NeedShield())
             {
                 this.ActivateModifier();
                 return;
@@ -62,6 +70,17 @@ namespace Psionics.Feats.Soulknife.BladeSkills
                 return;
             }
             this.CheckShield();
+        }
+
+        // Disgusting Hack to recalculate shield in time (Thanks Tabletop Tweaks One-handed toggle)
+        public void OnEventAboutToTrigger(RuleCalculateAC evt)
+        {
+            if (evt.Target != base.Owner) return;
+            this.CheckShield();
+        }
+
+        public void OnEventDidTrigger(RuleCalculateAC evt)
+        {
         }
     }
 

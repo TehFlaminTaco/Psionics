@@ -2,6 +2,7 @@
 using BlueprintCore.Actions.Builder.ContextEx;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
+using Kingmaker.UnitLogic.Mechanics.Components;
 using Psionics.Abilities.Soulknife.Bladeskills;
 using Psionics.Buffs;
 using System;
@@ -31,6 +32,7 @@ namespace Psionics.Abilities.Soulknife
                 .SetType(AbilityType.Supernatural)
                 .SetDisplayName(DisplayName)
                 .SetDescription(Description)
+                .AddComponent<HideDCFromTooltip>()
                 .SetIcon(Icon)
                 .SetActionType(Kingmaker.UnitLogic.Commands.Base.UnitCommand.CommandType.Move)
                 .SetAnimation(Kingmaker.Visual.Animation.Kingmaker.Actions.UnitAnimationActionCastSpell.CastAnimationStyle.EnchantWeapon)

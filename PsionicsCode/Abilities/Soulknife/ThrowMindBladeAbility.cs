@@ -32,6 +32,7 @@ using static Pathfinding.Util.RetainedGizmos;
 using System.Windows.Markup;
 using Kingmaker.Blueprints;
 using BlueprintCore.Utils;
+using Kingmaker.UnitLogic.Mechanics.Components;
 
 namespace Psionics.Abilities.Soulknife
 {
@@ -209,6 +210,7 @@ namespace Psionics.Abilities.Soulknife
                     .SetCanTargetFriends(false)
                     .SetCanTargetPoint(false)
                     .SetCanTargetSelf(false)
+                    .AddComponent<HideDCFromTooltip>()
                     .SetIcon(Icon)
                     .SetCustomRange(20 - i * 5)
                     .SetAnimation(Kingmaker.Visual.Animation.Kingmaker.Actions.UnitAnimationActionCastSpell.CastAnimationStyle.Thrown)

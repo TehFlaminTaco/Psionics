@@ -32,6 +32,7 @@ using Kingmaker.UnitLogic.Abilities.Components;
 using Kingmaker.UnitLogic.Abilities.Components.Base;
 using UnityEngine.Serialization;
 using Kingmaker.Blueprints;
+using Kingmaker.UnitLogic.Mechanics.Components;
 
 namespace Psionics.Abilities.Soulknife.Bladeskills
 {
@@ -86,19 +87,20 @@ namespace Psionics.Abilities.Soulknife.Bladeskills
             BlueprintInstance = AbilityConfigurator.New(AbilityName, AbilityGUID)
                 .SetDisplayName(DisplayName)
                 .SetDescription(Description)
-                .AddComponent(new AbilityTargetsAround()
+                .AddComponent<AbilityTargetsAround>(c=>
                 {
-                    m_Radius = 30.Feet(),
-                    m_TargetType = TargetType.Enemy,
-                    m_IncludeDead = false,
-                    m_SpreadSpeed = 0.Feet(),
-                    m_Flags = 0,
-                    m_Condition = new ConditionsChecker()
+                    c.m_Radius = 30.Feet();
+                    c.m_TargetType = TargetType.Enemy;
+                    c.m_IncludeDead = false;
+                    c.m_SpreadSpeed = 0.Feet();
+                    c.m_Flags = 0;
+                    c.m_Condition = new ConditionsChecker();
                 })
-                .AddComponent(new RequireMindBlade()
+                .AddComponent<RequireMindBlade>(c=>
                 {
-                    m_AllowHeavy = false
+                    c.m_AllowHeavy = false;
                 })
+                .AddComponent<HideDCFromTooltip>()
                 .RequirePsionicFocus()
                 .SetIcon(Icon)
                 .SetActionType(Kingmaker.UnitLogic.Commands.Base.UnitCommand.CommandType.Standard)

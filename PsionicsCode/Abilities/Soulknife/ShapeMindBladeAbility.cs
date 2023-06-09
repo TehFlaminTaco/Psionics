@@ -18,6 +18,7 @@ using Kingmaker.UI;
 using Kingmaker.UnitLogic;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Mechanics.Actions;
+using Kingmaker.UnitLogic.Mechanics.Components;
 using Psionics.Buffs;
 using Psionics.Classes;
 using Psionics.Equipment;
@@ -70,6 +71,7 @@ namespace Psionics.Abilities.Soulknife
                     .SetNotOffensive(true)
                     .SetCanTargetSelf(true)
                     .SetRange(AbilityRange.Personal)
+                    .AddComponent<HideDCFromTooltip>()
                     .SetIsFullRoundAction(true)
                     .SetActionType(Kingmaker.UnitLogic.Commands.Base.UnitCommand.CommandType.Standard)
                     .SetAnimation(Kingmaker.Visual.Animation.Kingmaker.Actions.UnitAnimationActionCastSpell.CastAnimationStyle.EnchantWeapon)

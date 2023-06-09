@@ -113,6 +113,7 @@ namespace Psionics
                     BladewindFeat.Configure();
                     DazzlingBladeAbility.Configure();
                     DazzlingBladeFeat.Configure();
+                    DeadlyBlow.Configure();
                     MindShield.Configure();
 
                     BladeSkillsFeat.Configure();

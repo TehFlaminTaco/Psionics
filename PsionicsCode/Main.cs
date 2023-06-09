@@ -114,6 +114,14 @@ namespace Psionics
                     DazzlingBladeAbility.Configure();
                     DazzlingBladeFeat.Configure();
                     DeadlyBlow.Configure();
+                    DispellingStrikeAbility.Configure();
+                    DispellingStrikeFeat.Configure();
+                    DisruptedBuff.Configure();
+                    DisruptingStrikeAbility.Configure();
+                    DisruptingStrikeFeat.Configure();
+                    DuelingBladeBuff.Configure();
+                    DuelingBladeAbility.Configure();
+                    DuelingBladeFeat.Configure();
                     MindShield.Configure();
 
                     BladeSkillsFeat.Configure();

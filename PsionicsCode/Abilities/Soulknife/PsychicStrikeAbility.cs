@@ -36,6 +36,7 @@ namespace Psionics.Abilities.Soulknife
                 .SetIcon(Icon)
                 .SetActionType(Kingmaker.UnitLogic.Commands.Base.UnitCommand.CommandType.Move)
                 .SetAnimation(Kingmaker.Visual.Animation.Kingmaker.Actions.UnitAnimationActionCastSpell.CastAnimationStyle.EnchantWeapon)
+                .SetHasFastAnimation(true)
                 .SetRange(AbilityRange.Personal)
                 .AddComponent(new RequireMindBlade())
                 .AddAbilityEffectRunAction(

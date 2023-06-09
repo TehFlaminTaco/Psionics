@@ -33,6 +33,9 @@ namespace Psionics.Feats.Soulknife
                     BladewindFeat.BlueprintInstance,
                     DazzlingBladeFeat.BlueprintInstance,
                     DeadlyBlow.BlueprintInstance,
+                    DispellingStrikeFeat.BlueprintInstance,
+                    DisruptingStrikeFeat.BlueprintInstance,
+                    DuelingBladeFeat.BlueprintInstance,
                     MindShield.BlueprintInstance
                 )
                 .SetIsClassFeature(true)

@@ -53,6 +53,8 @@ namespace Psionics.Abilities.Soulknife.Bladeskills
                 .SetActionType(ActionType)
                 .SetType(TypeAbility)
                 .SetLocalizedSavingThrow(SavingThrow.FortNegates)
+                .SetAnimation(Kingmaker.Visual.Animation.Kingmaker.Actions.UnitAnimationActionCastSpell.CastAnimationStyle.EnchantWeapon)
+                .SetHasFastAnimation(true)
                 .AddAbilityEffectRunAction(ActionsBuilder.New()
                     .SavingThrow(Kingmaker.EntitySystem.Stats.SavingThrowType.Fortitude, null, new ContextValue()
                     {

@@ -66,11 +66,9 @@ namespace Psionics.Abilities.Soulknife.Bladeskills
                 return;
             }
 
-            UnitEntityData unitEntityData = SelectTarget(Context.MaybeCaster, new Feet(5).Meters, false, Target?.Unit);
+            UnitEntityData unitEntityData = SelectTarget(Context.MaybeCaster, threatHandRanged.Weapon.AttackRange.Meters, false, Target?.Unit);
             if (!(unitEntityData != null))
-            {
                 return;
-            }
 
             IsBladeWinding = true;
             try
@@ -154,8 +152,8 @@ namespace Psionics.Abilities.Soulknife.Bladeskills
                     bp.m_Flags = 0;
                     bp.m_Condition = new ConditionsChecker();
                 })
-                .AddComponent<RequireMindBlade>()
                 .AddComponent<HideDCFromTooltip>()
+                .AddComponent<RequireMindBlade>()
                 .SetIcon(Icon)
                 .SetActionType(Kingmaker.UnitLogic.Commands.Base.UnitCommand.CommandType.Standard)
                 .SetIsFullRoundAction(true)

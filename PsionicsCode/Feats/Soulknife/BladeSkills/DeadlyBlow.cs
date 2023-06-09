@@ -62,7 +62,7 @@ namespace Psionics.Feats.Soulknife.BladeSkills
                     prerequisiteClassLevel.CheckInProgression = false;
                     bp.ComponentsArray = bp.ComponentsArray.Append(prerequisiteClassLevel).ToArray();
                 })
-                .Configure();
+                .Configure(true);
         }
 
     }

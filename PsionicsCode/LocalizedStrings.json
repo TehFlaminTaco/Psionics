@@ -12,21 +12,6 @@
   },
   // Variants
   {
-    "Key": "ReformLight.Name",
-    "ProcessTemplates": false,
-    "enGB": "Shape Light"
-  },
-  {
-    "Key": "ReformSword.Name",
-    "ProcessTemplates": false,
-    "enGB": "Shape One-Handed"
-  },
-  {
-    "Key": "ReformHeavy.Name",
-    "ProcessTemplates": false,
-    "enGB": "Shape Two-Handed"
-  },
-  {
     "Key": "FormMindBladeAbility.Name",
     "ProcessTemplates": false,
     "enGB": "Form Mind Blade"

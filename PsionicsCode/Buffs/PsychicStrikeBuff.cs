@@ -30,9 +30,27 @@ using Psionics.Equipment;
 using Psionics.Feats.Soulknife;
 using Kingmaker.UnitLogic.Buffs;
 using Psionics.Abilities.Soulknife.Bladeskills;
+using Kingmaker.EntitySystem.Entities;
+using Kingmaker.UnitLogic.Abilities.Components.Base;
 
 namespace Psionics.Buffs
 {
+    [TypeId("d23fe5f1-0fcf-4f39-a655-ae336622c3f2")]
+    public class PrerequisiteHasPsychicStrike : BlueprintComponent, IAbilityCasterRestriction
+    {
+        public bool Not;
+
+        public string GetAbilityCasterRestrictionUIText()
+        {
+            return $"{(Not ? "Has" : "No")} Psionic Strike Charge!";
+        }
+
+        public bool IsCasterRestrictionPassed(UnitEntityData caster)
+        {
+            return caster.Buffs.Enumerable.Any(c => c.Blueprint == PsychicStrikeBuff.BlueprintInstance) ^ Not;
+        }
+    }
+
     [ComponentName("Psychic strike damage bonus")]
     [TypeId("c307f9e9-8590-4e4a-b486-0fe384d225da")]
     [AllowedOn(typeof(BlueprintUnitFact), false)]
@@ -105,6 +123,18 @@ namespace Psionics.Buffs
                 .SetDescription(Description)
                 .SetIcon(Icon)
                 .Configure(true);
+        }
+
+        public static void Spend(UnitEntityData unit)
+        {
+            var buff = unit.Buffs.Enumerable.FirstOrDefault(c => c.Blueprint == PsychicStrikeBuff.BlueprintInstance);
+            if (buff.GetRank() <= 1)
+            {
+                buff.Deactivate();
+                buff.Remove();
+            }
+            if (buff is not null)
+                buff.RemoveRank();
         }
 
     }

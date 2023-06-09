@@ -51,7 +51,6 @@ namespace Psionics.Feats
         public static void Configure()
         {
             BlueprintInstance = FeatureConfigurator.New(FeatName, FeatGUID, FeatureGroup.Feat)
-                .AddAbilityResources()
                 .AddComponent(new IncreaseResourceAmountVariable() { m_Resource = PowerPoints.BlueprintInstance.ToReference<BlueprintAbilityResourceReference>(), ValueTable = new[] {2,2,1} })
                 .AddFeatureIfHasFact(PowerPointPool.BlueprintInstance, PowerPointPool.BlueprintInstance, true)
                 .SetDisplayName(DisplayName)

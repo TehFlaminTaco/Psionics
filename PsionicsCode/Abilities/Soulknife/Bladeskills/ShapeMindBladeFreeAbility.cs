@@ -59,7 +59,7 @@ namespace Psionics.Abilities.Soulknife.Bladeskills
             foreach (var Shape in ShapeNames)
             {
                 FormShapes[fsIndex] = AbilityConfigurator.New($"Reform{Shape}Free", VariantGUIDs[fsIndex])
-                    .SetDisplayName($"Reform{Shape}Free.Name")
+                    .SetDisplayName($"Reform{Shape}Free.Name".Translate($"Reform Mindblade ({ShapeMindBladeAbility.ShapeTranslations[Shape]}) (Free)"))
                     .SetDescription(ShapeMindBladeAbility.Description)
                     .SetIcon(Icon)
                     .SetNotOffensive(true)

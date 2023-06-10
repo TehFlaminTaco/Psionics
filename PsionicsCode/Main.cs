@@ -94,6 +94,7 @@ namespace Psionics
                     TwinMindBlade.Configure();
                     FormMindBladeFeat.Configure();
                     ThrowMindBladeAbility.Configure();
+                    ThrowMindBladeFeat.Configure();
                     SoulknifeKineticBlastFeature.Configure();
                     SoulKnifeBonusFeat.Configure();
                     SoulknifeQuickDraw.Configure();
@@ -122,7 +123,9 @@ namespace Psionics
                     DuelingBladeBuff.Configure();
                     DuelingBladeAbility.Configure();
                     DuelingBladeFeat.Configure();
+                    EnhancedRange.Configure();
                     MindShield.Configure();
+                    TwoHandedThrow.Configure();
 
                     BladeSkillsFeat.Configure();
 

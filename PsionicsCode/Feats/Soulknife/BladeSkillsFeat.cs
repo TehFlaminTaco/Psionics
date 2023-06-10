@@ -36,7 +36,9 @@ namespace Psionics.Feats.Soulknife
                     DispellingStrikeFeat.BlueprintInstance,
                     DisruptingStrikeFeat.BlueprintInstance,
                     DuelingBladeFeat.BlueprintInstance,
-                    MindShield.BlueprintInstance
+                    EnhancedRange.BlueprintInstance,
+                    MindShield.BlueprintInstance,
+                    TwoHandedThrow.BlueprintInstance
                 )
                 .SetIsClassFeature(true)
                 .Configure();

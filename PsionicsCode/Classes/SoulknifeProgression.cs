@@ -25,7 +25,8 @@ namespace Psionics.Classes
                                  FormMindBladeFeat.FormMindBladeBlueprint,
                                  ShapeMindBladeFeat.BlueprintInstance,
                                  SoulKnifeBonusFeat.BlueprintInstance,
-                                 WildTalentFeat.BlueprintInstance
+                                 WildTalentFeat.BlueprintInstance,
+                                 ThrowMindBladeFeat.BlueprintInstance
                )
                .SetLevelEntry(02, BladeSkillsFeat.BlueprintInstance)
                .SetLevelEntry(03, PsychicStrikeFeat.BlueprintInstance, EnhancedMindBladeFeat.BlueprintInstance)

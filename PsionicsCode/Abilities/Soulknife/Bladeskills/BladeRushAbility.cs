@@ -232,19 +232,4 @@ namespace Psionics.Abilities.Soulknife.Bladeskills
                 .Configure();
         }
     }
-
-    [HarmonyPatch(typeof(BlueprintAbility), nameof(BlueprintAbility.GetRange))]
-    static class BlueprintAbility_GetRange_BladeRush_Patch
-    {
-        static bool Prefix(UnitViewHandsEquipment __instance, ref Feet __result, ref bool reach, ref AbilityData abilityData)
-        {
-            if (abilityData.Blueprint == BladeRushAbility.BlueprintInstance)
-            {
-                __result = BlueprintAbility.GetDoubleMoveRange(abilityData) / 2;
-                return false;
-            }
-
-            return true;
-        }
-    }
 }

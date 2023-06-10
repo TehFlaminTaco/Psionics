@@ -88,9 +88,6 @@ namespace Psionics.Buffs
                         Enchant(base.Data.Twin, twinned);
                     }
                 }
-                if (Shape != "Heavy")
-                    base.Owner.AddFact(ThrowMindBladeAbility.BlueprintInstances[Shape == "Sword" ? 1 : 0]);
-
                 using (ContextData<ItemsCollection.SuppressEvents>.Request())
                 {
                     base.Owner.Body.PrimaryHand.InsertItem(base.Data.Applied);
@@ -109,8 +106,6 @@ namespace Psionics.Buffs
             public override void OnDeactivate()
             {
                 base.OnDeactivate();
-                base.Owner.RemoveFact(ThrowMindBladeAbility.BlueprintInstances[0]);
-                base.Owner.RemoveFact(ThrowMindBladeAbility.BlueprintInstances[1]);
                 if (base.Data.Applied != null)
                 {
                     base.Data.Applied.HoldingSlot?.RemoveItem();

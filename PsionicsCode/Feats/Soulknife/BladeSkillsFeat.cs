@@ -37,6 +37,7 @@ namespace Psionics.Feats.Soulknife
                     DisruptingStrikeFeat.BlueprintInstance,
                     DuelingBladeFeat.BlueprintInstance,
                     EnhancedRange.BlueprintInstance,
+                    ExpandShieldFeat.BlueprintInstance,
                     MindShield.BlueprintInstance,
                     TwoHandedThrow.BlueprintInstance
                 )

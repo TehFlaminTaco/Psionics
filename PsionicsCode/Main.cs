@@ -102,6 +102,9 @@ namespace Psionics
                     PsychicStrikeAbility.Configure();
                     PsychicStrikeFeat.Configure();
 
+                    // Pulled up because a few blade skills need this.
+                    MindShield.Configure();
+
                     ShapeMindBladeFreeAbility.Configure();
                     AlterBladeFeat.Configure();
                     BladeRushBuff.Configure();
@@ -124,7 +127,12 @@ namespace Psionics
                     DuelingBladeAbility.Configure();
                     DuelingBladeFeat.Configure();
                     EnhancedRange.Configure();
-                    MindShield.Configure();
+                    MindTowerShieldItem.Configure();
+                    MindTowerShieldBuff.Configure();
+                    ExpandShieldAbility.Configure();
+                    ExpandShieldFeat.Configure();
+                    FormTowerMindShield.Configure();
+                    TowerMindShieldFeat.Configure();
                     TwoHandedThrow.Configure();
 
                     BladeSkillsFeat.Configure();

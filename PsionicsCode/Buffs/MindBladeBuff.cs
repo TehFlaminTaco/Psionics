@@ -48,7 +48,7 @@ namespace Psionics.Buffs
                 if (!base.Owner.HasMoveAction() && !base.Owner.HasFact(SoulknifeQuickDraw.BlueprintInstance))
                 {
                     Main.Logger.Info("No move action :(");
-                    var formAbility = this.Owner.ActivatableAbilities.Enumerable.Where(c => c.Blueprint == FormMindBladeAbility.BlueprintInstance).FirstOrDefault();
+                    var formAbility = this.Owner.ActivatableAbilities.Enumerable.Where(c => c.Blueprint == FormTowerMindShield.BlueprintInstance).FirstOrDefault();
                     if (formAbility is not null && formAbility.IsOn)
                         formAbility.IsTurnedOn = false;
                     return;

@@ -2,10 +2,14 @@
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.JsonSystem;
+using Kingmaker.ElementsSystem;
 using Kingmaker.EntitySystem.Entities;
+using Kingmaker.Items;
 using Kingmaker.UnitLogic.Abilities.Components.Base;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Kingmaker.UnitLogic.Mechanics.Actions;
+using Psionics.Abilities.Soulknife;
+using Psionics.Equipment;
 using System;
 using System.Collections.Generic;
 using System.Linq;

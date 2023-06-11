@@ -25,7 +25,6 @@ namespace Psionics.Feats
             BlueprintInstance = FeatureConfigurator.New(FeatName, FeatGUID)
                 .AddAbilityResources(0, PowerPoints.BlueprintInstance, true, false, false)
                 .AddFeatureIfHasFact(GainPsionicFocusAbility.BlueprintInstance, GainPsionicFocusAbility.BlueprintInstance, true)
-                .AddFeatureIfHasFact(GainPsionicFocusFreeAbility.BlueprintInstance, GainPsionicFocusFreeAbility.BlueprintInstance, true)
                 .SetDisplayName(DisplayName)
                 .SetDescription(Description)
                 .Configure();

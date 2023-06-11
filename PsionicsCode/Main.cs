@@ -100,6 +100,7 @@ namespace Psionics
                     SoulknifeQuickDraw.Configure();
                     PsychicStrikeBuff.Configure();
                     PsychicStrikeAbility.Configure();
+                    PsychicStrikeFreeAbility.Configure();
                     PsychicStrikeFeat.Configure();
 
                     // Pulled up because a few blade skills need this.

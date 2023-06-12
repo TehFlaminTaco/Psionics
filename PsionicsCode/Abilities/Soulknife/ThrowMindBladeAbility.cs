@@ -229,7 +229,7 @@ namespace Psionics.Abilities.Soulknife
             var caster = Context.MaybeCaster;
             if (caster == null)
                 return;
-            var formAbility = caster.ActivatableAbilities.Enumerable.Where(c => c.Blueprint == FormTowerMindShield.BlueprintInstance).FirstOrDefault();
+            var formAbility = caster.ActivatableAbilities.Enumerable.Where(c => c.Blueprint == FormMindBladeAbility.BlueprintInstance).FirstOrDefault();
             // Check if we're dual-wielding these, and only delete the secondary if we are.
             if (caster.Body.SecondaryHand.HasWeapon && MindBladeItem.TypeInstances.Contains(caster.Body.SecondaryHand.Weapon.Blueprint.Type))
             {

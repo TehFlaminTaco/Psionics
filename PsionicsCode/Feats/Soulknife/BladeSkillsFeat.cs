@@ -39,6 +39,8 @@ namespace Psionics.Feats.Soulknife
                     EnhancedRange.BlueprintInstance,
                     ExpandShieldFeat.BlueprintInstance,
                     MindShield.BlueprintInstance,
+                    TelekineticBolt.SelectionInstance,
+                    TowerMindShieldFeat.BlueprintInstance,
                     TwoHandedThrow.BlueprintInstance
                 )
                 .SetIsClassFeature(true)

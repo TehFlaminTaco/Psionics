@@ -85,14 +85,19 @@ namespace Psionics
                     WildTalentFeat.Configure();
 
                     MindBladeItem.Configure();
+                    MindBoltItem.Configure();
                     SoulknifeProficiencies.Configure();
                     MindBladeBuff.Configure();
                     MindBladeShapeBuff.Configure();
+                    MindBoltBuff.Configure();
+                    MindBoltShapeFeat.Configure();
                     FormMindBladeAbility.Configure();
+                    FormMindBoltAbility.Configure();
                     ShapeMindBladeAbility.Configure();
                     ShapeMindBladeFeat.Configure();
                     TwinMindBlade.Configure();
                     FormMindBladeFeat.Configure();
+                    FormMindBoltFeat.Configure();
                     ThrowMindBladeAbility.Configure();
                     ThrowMindBladeFeat.Configure();
                     SoulknifeKineticBlastFeature.Configure();
@@ -133,6 +138,7 @@ namespace Psionics
                     ExpandShieldAbility.Configure();
                     ExpandShieldFeat.Configure();
                     FormTowerMindShield.Configure();
+                    TelekineticBolt.Configure();
                     TowerMindShieldFeat.Configure();
                     TwoHandedThrow.Configure();
 

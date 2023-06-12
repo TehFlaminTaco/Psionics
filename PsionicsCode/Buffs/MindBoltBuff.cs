@@ -29,81 +29,58 @@ using Kingmaker.UnitLogic.ActivatableAbilities;
 
 namespace Psionics.Buffs
 {
-    public class MindBladeBuff
+    public class MindBoltBuff
     {
-        public class AddMindBladeData
+        public class AddMindBoltData
         {
             [JsonProperty]
             public ItemEntityWeapon Applied;
-            [JsonProperty]
-            public ItemEntityWeapon Twin;
         }
 
-        [TypeId("9f60c4c8-bdca-4e20-8cba-cb2e755257d3")]
-        public class AddMindBlades : UnitBuffComponentDelegate<AddMindBladeData>, IAreaActivationHandler, IGlobalSubscriber, ISubscriber
+        [TypeId("df168dc8-bcd4-4cb0-b5dd-20d1c523a854")]
+        public class AddMindBolts : UnitBuffComponentDelegate<AddMindBoltData>, IAreaActivationHandler, IGlobalSubscriber, ISubscriber
         {
             public override void OnActivate()
             {
-                if (base.Owner.TryGet(FormMindBoltAbility.BlueprintInstance, out ActivatableAbility ab) && ab.IsTurnedOn)
+                if (base.Owner.TryGet(FormMindBladeAbility.BlueprintInstance, out ActivatableAbility ab) && ab.IsTurnedOn)
                     ab.TurnOffImmediately();
                 Main.Logger.Info("Trying to add mind blade!");
                 base.OnActivate();
                 if (!base.Owner.HasMoveAction() && !base.Owner.HasFact(SoulknifeQuickDraw.BlueprintInstance))
                 {
                     Main.Logger.Info("No move action :(");
-                    var formAbility = this.Owner.ActivatableAbilities.Enumerable.Where(c => c.Blueprint == FormMindBladeAbility.BlueprintInstance).FirstOrDefault();
+                    var formAbility = this.Owner.ActivatableAbilities.Enumerable.Where(c => c.Blueprint == FormMindBoltAbility.BlueprintInstance).FirstOrDefault();
                     if (formAbility is not null && formAbility.IsOn)
                         formAbility.IsTurnedOn = false;
                     return;
                 }
                 base.Owner.MarkNotOptimizableInSave();
-                BlueprintItemWeapon Blade = MindBladeItem.BlueprintInstances[1];
-                var Shape = "Sword";
+                BlueprintItemWeapon Bolt = MindBoltItem.BlueprintInstances[1];
+                int shapeIndex = 1;
                 for(int fsIndex = 0; fsIndex < 3; fsIndex++)
                 {
                     if (base.Owner.HasFact(MindBladeShapeBuff.BlueprintInstances[fsIndex]))
                     {
-                        Shape = ShapeMindBladeAbility.ShapeNames[fsIndex];
-                        Blade = MindBladeItem.BlueprintInstances[fsIndex];
+                        shapeIndex = fsIndex;
+                        Bolt = MindBoltItem.BlueprintInstances[fsIndex];
                         break;
                     }
                 }
 
-                base.Data.Applied = Blade.CreateEntity<ItemEntityWeapon>();
+                base.Data.Applied = Bolt.CreateEntity<ItemEntityWeapon>();
                 base.Data.Applied.MakeNotLootable();
-                var twinMindBlade = base.Owner.ActivatableAbilities.Enumerable.Where(c => c.Blueprint == TwinMindBlade.BlueprintInstance).FirstOrDefault();
-                bool twinned = twinMindBlade is not null && twinMindBlade.IsOn;
-                Enchant(base.Data.Applied, twinned);
+                Enchant(base.Data.Applied);
                 if (!base.Owner.Body.PrimaryHand.CanInsertItem(base.Data.Applied))
                 {
-                    Main.Logger.Info("Failed to add mind blade! CanInserItem returned false!");
+                    Main.Logger.Info("Failed to add mind bolt! CanInsertItem returned false!");
                     base.Data.Applied = null;
-                    PFLog.Default.Error("Can't insert mind blade to main hand");
+                    PFLog.Default.Error("Can't insert mind bolt to main hand");
                     return;
-                }
-                var hasAlterBlade = base.Owner.HasFact(AlterBladeFeat.BlueprintInstance);
-                if(Shape == "Light" || (Shape == "Sword" && hasAlterBlade))
-                {
-                    if(twinned)
-                    {
-                        base.Data.Twin = MindBladeItem.BlueprintInstances[0].CreateEntity<ItemEntityWeapon>();
-                        base.Data.Twin.MakeNotLootable();
-                        Enchant(base.Data.Twin, twinned);
-                    }
                 }
                 using (ContextData<ItemsCollection.SuppressEvents>.Request())
                 {
                     base.Owner.Body.PrimaryHand.InsertItem(base.Data.Applied);
                     Main.Logger.Info("Finished to adding mind blade!");
-                    if (base.Data.Twin is not null && base.Owner.Body.SecondaryHand.CanInsertItem(base.Data.Twin))
-                    {
-                        base.Owner.Body.SecondaryHand.InsertItem(base.Data.Twin);
-                    }
-                    else if(base.Data.Twin is not null)
-                    {
-                        base.Data.Twin.Collection?.Remove(base.Data.Twin);
-                        base.Data.Twin = null;
-                    }
                 }
             }
             public override void OnDeactivate()
@@ -119,24 +96,13 @@ namespace Psionics.Buffs
 
                     base.Data.Applied = null;
                 }
-                if(base.Data.Twin != null)
-                {
-                    base.Data.Twin.HoldingSlot?.RemoveItem();
-                    using (ContextData<ItemsCollection.SuppressEvents>.Request())
-                    {
-                        base.Data.Twin.Collection?.Remove(base.Data.Twin);
-                    }
-                    base.Data.Twin = null;
-                }
             }
 
-            public void Enchant(ItemEntityWeapon wep, bool twinned)
+            public void Enchant(ItemEntityWeapon wep)
             {
                 if (base.Owner.HasFact(EnhancedMindBladeFeat.BlueprintInstance))
                 {
                     int sparePoints = base.Owner.Resources.GetResource(MindbladeEnhancement.BlueprintInstance).Amount;
-                    if (twinned)
-                        sparePoints--;
                     if (sparePoints == 0)
                         return;
                     if(sparePoints > 0) {
@@ -158,13 +124,11 @@ namespace Psionics.Buffs
             public override void OnTurnOn()
             {
                 base.Data.Applied?.HoldingSlot.Lock.Retain();
-                base.Data.Twin?.HoldingSlot.Lock.Retain();
             }
 
             public override void OnTurnOff()
             {
                 base.Data.Applied?.HoldingSlot.Lock.Release();
-                base.Data.Twin?.HoldingSlot.Lock.Release();
             }
 
             public void OnAreaActivated()
@@ -178,18 +142,18 @@ namespace Psionics.Buffs
         }
 
 
-        private static readonly string BuffGUID = "014db534-1f7a-4850-938a-98afd7d6ea2c";
+        private static readonly string BuffGUID = "75d3d757-1000-4ade-beb1-0df47bcc787c";
         public static BlueprintBuff BlueprintInstance = null;
 
-        private static readonly string DisplayName = "MindBladeBuff.Name".Translate("Formed Mind Blade");
-        private static readonly string Description = "MindBladeBuff.Description".Translate("A Mind Blade has been formed", true);
+        private static readonly string DisplayName = "MindBoltBuff.Name".Translate("Formed Mind Bolt");
+        private static readonly string Description = "MindBoltBuff.Description".Translate("A Mind Bolt has been formed", true);
 
         public static void Configure()
         {
-            BlueprintInstance = BuffConfigurator.New($"MindBladeBuff", BuffGUID)
+            BlueprintInstance = BuffConfigurator.New($"MindBoltBuff", BuffGUID)
                 .SetDisplayName(DisplayName)
                 .SetDescription(Description)
-                .AddComponent(new AddMindBlades())
+                .AddComponent<AddMindBolts>()
                 .Configure();
         }
     }

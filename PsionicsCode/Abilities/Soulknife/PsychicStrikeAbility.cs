@@ -33,12 +33,12 @@ namespace Psionics.Abilities.Soulknife
                 .SetDisplayName(DisplayName)
                 .SetDescription(Description)
                 .AddComponent<HideDCFromTooltip>()
+                .AddComponent<RequireMindBlade>( rmb => rmb.m_AllowBolt = true)
                 .SetIcon(Icon)
                 .SetActionType(Kingmaker.UnitLogic.Commands.Base.UnitCommand.CommandType.Move)
                 .SetAnimation(Kingmaker.Visual.Animation.Kingmaker.Actions.UnitAnimationActionCastSpell.CastAnimationStyle.EnchantWeapon)
                 .SetHasFastAnimation(true)
                 .SetRange(AbilityRange.Personal)
-                .AddComponent(new RequireMindBlade())
                 .AddAbilityEffectRunAction(
                     ActionsBuilder.New()
                         .ApplyBuffPermanent(PsychicStrikeBuff.BlueprintInstance, true, true, false, true, true, false, true)

@@ -17,7 +17,7 @@ namespace Psionics.Abilities.Soulknife
     {
         public static BlueprintAbility BlueprintInstance = null;
         private static readonly string AbilityName = "PsychicStrikeFreeAbility";
-        private static readonly string AbilityGUID = "8257450f-b057-4dd4-9c56-339b99af33c3";
+        private static readonly string AbilityGUID = "e9f895d8-18b9-4787-af8b-cbe5b85c6314";
 
 
         [Translate("Psychic Strike (Swift)")]

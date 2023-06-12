@@ -45,6 +45,8 @@ namespace Psionics.Abilities.Soulknife.Bladeskills
         public bool m_AllowSword = true;
         [FormerlySerializedAs("AllowHeavy")]
         public bool m_AllowHeavy = true;
+        [FormerlySerializedAs("AllowBolt")]
+        public bool m_AllowBolt = false;
         public string GetAbilityCasterRestrictionUIText()
         {
             return "Caster not holding valid Mind Blade";
@@ -61,7 +63,8 @@ namespace Psionics.Abilities.Soulknife.Bladeskills
                     return m_AllowSword;
                 if (bladeType == MindBladeItem.BlueprintInstances[2])
                     return m_AllowHeavy;
-
+                if (bladeType == MindBoltItem.BlueprintInstances[0] || bladeType == MindBoltItem.BlueprintInstances[1] || bladeType == MindBoltItem.BlueprintInstances[2])
+                    return m_AllowBolt;
             }
             return false;
         }

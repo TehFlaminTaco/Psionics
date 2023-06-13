@@ -137,8 +137,11 @@ namespace Psionics
                     MindTowerShieldBuff.Configure();
                     ExpandShieldAbility.Configure();
                     ExpandShieldFeat.Configure();
-                    FormTowerMindShield.Configure();
+                    ExplodingCriticalBuff.Configure();
+                    ExplodingCriticalAbility.Configure();
+                    ExplodingCriticalFeat.Configure();
                     TelekineticBolt.Configure();
+                    FormTowerMindShield.Configure();
                     TowerMindShieldFeat.Configure();
                     TwoHandedThrow.Configure();
 

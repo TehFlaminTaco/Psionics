@@ -59,7 +59,7 @@ namespace Psionics.Buffs
                 int shapeIndex = 1;
                 for(int fsIndex = 0; fsIndex < 3; fsIndex++)
                 {
-                    if (base.Owner.HasFact(MindBladeShapeBuff.BlueprintInstances[fsIndex]))
+                    if (base.Owner.HasFact(MindBoltShapeFeat.BlueprintInstances[fsIndex]))
                     {
                         shapeIndex = fsIndex;
                         Bolt = MindBoltItem.BlueprintInstances[fsIndex];

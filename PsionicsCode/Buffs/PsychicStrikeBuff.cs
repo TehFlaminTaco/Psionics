@@ -67,7 +67,9 @@ namespace Psionics.Buffs
                 return;
             int scale = 1;
             if (m_ScaleWith is not null && evt.Initiator.HasFact(m_ScaleWith))
-                scale = evt.Initiator.GetFact(m_ScaleWith).GetRank();
+                scale = evt.Initiator.GetFeature(m_ScaleWith).GetRank();
+            else
+                Main.Logger.Info("Couldn't find Psychic Strike Scale!");
             DiceFormula num = new DiceFormula()
             {
                 m_Dice = DiceType.D8,
@@ -94,6 +96,8 @@ namespace Psionics.Buffs
 
         public void HandleAttackHitRoll(RuleAttackRoll rollAttackHit)
         {
+            if (!MindBladeItem.TypeInstances.Contains(rollAttackHit.Weapon.Blueprint.Type))
+                return;
             var alternativeSpend = rollAttackHit.Initiator.ActivatableAbilities.Enumerable.FirstOrDefault(b => b.Blueprint == BladewindSpendPsionicStrikeAbility.BlueprintInstance);
             if (alternativeSpend is not null && alternativeSpend.IsOn && BladewindForcedMeleeAction.IsBladeWinding)
                 return;

@@ -26,6 +26,7 @@ namespace Psionics.Feats.Soulknife.BladeSkills
             BlueprintInstance = FeatureConfigurator.New(FeatName, FeatGUID)
                 .SetDisplayName(DisplayName)
                 .SetDescription(Description)
+                .AddPrerequisiteFeature(MindShield.BlueprintInstance, false)
                 .AddFeatureIfHasFact(FormTowerMindShield.BlueprintInstance, FormTowerMindShield.BlueprintInstance, true)
                 .Configure();
         }

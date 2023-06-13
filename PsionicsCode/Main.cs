@@ -145,6 +145,12 @@ namespace Psionics
                     FireBladeAbility.Configure();
                     FireBladeSpendFocusAbility.Configure();
                     FireBladeFeat.Configure();
+                    IceBladeSlowedBuff.Configure();
+                    IceBladeBuff.Configure();
+                    IceBladeSpendFocusBuff.Configure();
+                    IceBladeAbility.Configure();
+                    IceBladeSpendFocusAbility.Configure();
+                    IceBladeFeat.Configure();
                     TelekineticBolt.Configure();
                     FormTowerMindShield.Configure();
                     TowerMindShieldFeat.Configure();

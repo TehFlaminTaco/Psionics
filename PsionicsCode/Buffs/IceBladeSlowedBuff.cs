@@ -19,10 +19,10 @@ using System.Threading.Tasks;
 namespace Psionics.Buffs
 {
 
-    [ComponentName("BuffMechanics/Speed modifier")]
+    [ComponentName("Iceblade Slowdown")]
     [AllowedOn(typeof(BlueprintUnitFact), false)]
     [AllowMultipleComponents]
-    [TypeId("cefaecfa273585b4a90126ba985bb9cd")]
+    [TypeId("728c4151-0168-4415-b9ea-c7a2890c5ae8")]
     public class Slowdown : UnitFactComponentDelegate
     {
         public override void OnTurnOn()

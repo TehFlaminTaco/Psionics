@@ -2,6 +2,7 @@
 using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using Kingmaker.Blueprints.Classes;
+using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.Designers.EventConditionActionSystem.Evaluators;
 using Kingmaker.Enums;
 using Kingmaker.Enums.Damage;
@@ -23,6 +24,7 @@ using UnityEngine.Serialization;
 
 namespace Psionics.Buffs
 {
+    [TypeId("40617a62-7711-4276-be04-e4fab25e5013")]
     public class FireBladeSpendFocus : UnitFactComponentDelegate, IInitiatorRulebookHandler<RulePrepareDamage>
     {
         public void OnEventAboutToTrigger(RulePrepareDamage evt)

@@ -1,6 +1,7 @@
 ﻿using BlueprintCore.Blueprints.Configurators.Classes;
 using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
+using BlueprintCore.Blueprints.References;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.Designers.EventConditionActionSystem.Evaluators;
@@ -24,16 +25,19 @@ using UnityEngine.Serialization;
 
 namespace Psionics.Buffs
 {
-    [TypeId("6a8f472c-a0df-4169-96ac-c085c61dd48e")]
-    public class IceBladeSpendFocus : UnitFactComponentDelegate, IInitiatorRulebookHandler<RulePrepareDamage>
+    [TypeId("59dfbfd0-3fa9-4bcb-8e4a-3c0d68ab990f")]
+    public class ThunderBladeSpendFocus : UnitFactComponentDelegate, IInitiatorRulebookHandler<RulePrepareDamage>
     {
         public void OnEventAboutToTrigger(RulePrepareDamage evt)
         {
             if (!MindBladeItem.TypeInstances.Contains(evt.ParentRule.AttackRoll.Weapon.Blueprint.Type))
                 return;
-            if (evt.Initiator.Buffs.Enumerable.Any(c => c.Blueprint == PsionicFocus.BlueprintInstance) && evt.Initiator.Buffs.Enumerable.Any(c => c.Blueprint == IceBladeBuff.BlueprintInstance))
+            if (evt.Initiator.Buffs.Enumerable.Any(c => c.Blueprint == PsionicFocus.BlueprintInstance) && evt.Initiator.Buffs.Enumerable.Any(c => c.Blueprint == ThunderBladeBuff.BlueprintInstance))
             {
-                evt.Target.AddBuff(IceBladeSlowedBuff.BlueprintInstance, this.Context, TimeSpan.FromSeconds(12f));
+                var saveRule = new RuleSavingThrow(evt.Target, Kingmaker.EntitySystem.Stats.SavingThrowType.Fortitude, 10 + evt.Initiator.Stats.BaseAttackBonus);
+                saveRule = Context.TriggerRule(saveRule);
+                if (!saveRule.IsPassed)
+                    evt.Target.AddBuff(ThunderBladeDebuff.BlueprintInstance, this.Context, TimeSpan.FromSeconds(12f));
                 PsionicFocus.Spend(evt.Initiator);
             }
         }
@@ -44,15 +48,15 @@ namespace Psionics.Buffs
         }
     }
 
-    public class IceBladeSpendFocusBuff
+    public class ThunderBladeSpendFocusBuff
     {
-        private static readonly string FeatName = "IceBladeSpendFocusBuff";
-        private static readonly string FeatGUID = "9471be40-3d3e-480a-b6c2-4f7ff10034ef";
+        private static readonly string FeatName = "ThunderBladeSpendFocusBuff";
+        private static readonly string FeatGUID = "9c0ccbcb-9a2c-44ef-96f9-7f4e804df181";
         public static BlueprintBuff BlueprintInstance = null;
 
-        private static readonly string DisplayName = "IceBladeSpendFocusAbility.Name";
-        private static readonly string Description = "IceBladeFeat.Description";
-        private static readonly string Icon = "assets/icons/iceblade.png";
+        private static readonly string DisplayName = "ThunderBladeSpendFocusAbility.Name";
+        private static readonly string Description = "ThunderBladeFeat.Description";
+        private static readonly string Icon = "assets/icons/thunderblade.png";
 
         public static void Configure()
         {
@@ -60,7 +64,7 @@ namespace Psionics.Buffs
                 .SetDisplayName(DisplayName)
                 .SetDescription(Description)
                 .SetIcon(Icon)
-                .AddComponent<IceBladeSpendFocus>()
+                .AddComponent<ThunderBladeSpendFocus>()
                 .Configure();
         }
 

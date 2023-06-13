@@ -41,8 +41,10 @@ namespace Psionics.Feats.Soulknife
                     ExplodingCriticalFeat.BlueprintInstance,
                     FireBladeFeat.BlueprintInstance,
                     IceBladeFeat.BlueprintInstance,
+                    LightningBladeFeat.BlueprintInstance,
                     MindShield.BlueprintInstance,
                     TelekineticBolt.SelectionInstance,
+                    ThunderBladeFeat.BlueprintInstance,
                     TowerMindShieldFeat.BlueprintInstance,
                     TwoHandedThrow.BlueprintInstance
                 )

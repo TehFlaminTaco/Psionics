@@ -140,6 +140,11 @@ namespace Psionics
                     ExplodingCriticalBuff.Configure();
                     ExplodingCriticalAbility.Configure();
                     ExplodingCriticalFeat.Configure();
+                    FireBladeBuff.Configure();
+                    FireBladeSpendFocusBuff.Configure();
+                    FireBladeAbility.Configure();
+                    FireBladeSpendFocusAbility.Configure();
+                    FireBladeFeat.Configure();
                     TelekineticBolt.Configure();
                     FormTowerMindShield.Configure();
                     TowerMindShieldFeat.Configure();

@@ -145,12 +145,15 @@ namespace Psionics
                     FireBladeAbility.Configure();
                     FireBladeSpendFocusAbility.Configure();
                     FireBladeFeat.Configure();
+                    FullEnhancement.Configure();
                     IceBladeSlowedBuff.Configure();
                     IceBladeBuff.Configure();
                     IceBladeSpendFocusBuff.Configure();
                     IceBladeAbility.Configure();
                     IceBladeSpendFocusAbility.Configure();
                     IceBladeFeat.Configure();
+                    ImprovedEnhancement.Configure();
+                    ImprovedMindShield.Configure();
                     LightningBladeDebuff.Configure();
                     LightningBladeBuff.Configure();
                     LightningBladeSpendFocusBuff.Configure();

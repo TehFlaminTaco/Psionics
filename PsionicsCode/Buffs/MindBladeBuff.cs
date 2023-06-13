@@ -136,7 +136,8 @@ namespace Psionics.Buffs
                 {
                     int sparePoints = base.Owner.Resources.GetResource(MindbladeEnhancement.BlueprintInstance).Amount;
                     if (twinned)
-                        sparePoints--;
+                        if (Owner.GetFeature(FullEnhancement.BlueprintInstance) == null)
+                            sparePoints--;
                     if (sparePoints == 0)
                         return;
                     if(sparePoints > 0) {

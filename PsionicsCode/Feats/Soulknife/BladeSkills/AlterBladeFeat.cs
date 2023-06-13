@@ -11,7 +11,7 @@ namespace Psionics.Feats.Soulknife.BladeSkills
 {
     public class AlterBladeFeat
     {
-        private static readonly string FeatName = "AlterBladeFeat";
+        private static readonly string FeatName = "AlterBladefeat";
         private static readonly string FeatGUID = "9d0bf308-54a8-45c6-81d3-c2dcf308b9aa";
         public static BlueprintFeature BlueprintInstance = null;
 

@@ -20,12 +20,14 @@ namespace Psionics.Feats.Soulknife.BladeSkills
         private static readonly string DisplayName = "TowerMindShieldFeat.Name";
         [Translate("The soulknife’s mind shield can be shaped into a tower shield. Altering the mind shield in this fashion is a move action that does not provoke attacks of opportunity. The mind shield remains in this form until shaped back into its standard form. The mind shield is treated in all ways (except visually) as a masterwork tower shield, granting a +4 shield bonus to AC, imposing a +2 Maximum Dexterity Bonus, a -9 armor check penalty, and a 50% arcane spell failure chance. The soulknife must have the Mind Shield blade skill to select this blade skill.", true)]
         private static readonly string Description = "TowerMindShieldFeat.Description";
+        private static readonly string Icon = "assets/icons/mindtowershield.png";
 
         public static void Configure()
         {
             BlueprintInstance = FeatureConfigurator.New(FeatName, FeatGUID)
                 .SetDisplayName(DisplayName)
                 .SetDescription(Description)
+                .SetIcon(Icon)
                 .AddPrerequisiteFeature(MindShield.BlueprintInstance, false)
                 .AddFeatureIfHasFact(FormTowerMindShield.BlueprintInstance, FormTowerMindShield.BlueprintInstance, true)
                 .Configure();

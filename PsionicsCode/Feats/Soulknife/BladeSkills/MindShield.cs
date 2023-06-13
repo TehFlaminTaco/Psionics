@@ -57,7 +57,10 @@ namespace Psionics.Feats.Soulknife.BladeSkills
         }
         private void ActivateModifier()
         {
-            base.Owner.Stats.AC.AddModifierUnique(2, base.Runtime, ModifierDescriptor.Shield);
+            int v = 2;
+            if (Owner.GetFeature(ImprovedMindShield.BlueprintInstance) != null)
+                v++;
+            base.Owner.Stats.AC.AddModifierUnique(v, base.Runtime, ModifierDescriptor.Shield);
         }
         private void DeactivateModifier()
         {

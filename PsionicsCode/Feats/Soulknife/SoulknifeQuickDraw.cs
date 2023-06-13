@@ -12,7 +12,7 @@ namespace Psionics.Feats.Soulknife
     public class SoulknifeQuickDraw
     {
         public static BlueprintFeature BlueprintInstance = null;
-        private static readonly string FeatName = "SoulknifeQuickDraw";
+        private static readonly string FeatName = "soulknifeQuickDraw";
         private static readonly string FeatGUID = "22c6274e-d98f-46cb-8b5d-38014abceddf";
 
         [Translate("Quick Draw")]

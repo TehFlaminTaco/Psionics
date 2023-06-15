@@ -22,13 +22,17 @@ namespace Psionics
     {
         static bool Prefix(UnitViewHandsEquipment __instance, ref Feet __result, ref bool reach, ref AbilityData abilityData)
         {
-            if (abilityData.Blueprint == BladeRushAbility.BlueprintInstance)
+            if (abilityData == null)
+                return true;
+            if (abilityData?.Blueprint == BladeRushAbility.BlueprintInstance)
             {
                 __result = BlueprintAbility.GetDoubleMoveRange(abilityData) / 2;
                 return false;
             }
-
-            foreach (var handler in abilityData.Blueprint.Components.OfType<IAbilityCustomRange>())
+            var comps = abilityData?.Blueprint?.Components?.OfType<IAbilityCustomRange>();
+            if (comps == null)
+                return true;
+            foreach (var handler in comps)
             {
                 var res = handler.GetRange(abilityData, reach);
                 if (res.Value < 0) continue;

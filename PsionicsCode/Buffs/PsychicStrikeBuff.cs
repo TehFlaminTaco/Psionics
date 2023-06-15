@@ -122,7 +122,8 @@ namespace Psionics.Buffs
         public static void Configure()
         {
             BlueprintInstance = BuffConfigurator.New(BuffName, BuffGUID)
-                .OnConfigure(bp=>bp.ComponentsArray = bp.ComponentsArray.Append(new PsychicStrikeDamageBonus() { m_ScaleWith = PsychicStrikeFeat.BlueprintInstance }).ToArray())
+                .OnConfigure(bp=>bp.GetComponent<PsychicStrikeDamageBonus>().m_ScaleWith = PsychicStrikeFeat.BlueprintInstance)
+                .AddComponent<PsychicStrikeDamageBonus>()
                 .SetDisplayName(DisplayName)
                 .SetDescription(Description)
                 .SetIcon(Icon)

@@ -25,7 +25,8 @@ namespace Psionics.Feats.Soulknife
                 .AddFacts(new List<BlueprintCore.Utils.Blueprint<Kingmaker.Blueprints.BlueprintUnitFactReference>>() {
                         "e70ecf1ed95ca2f40b754f1adb22bbdd", // Simple Weapon Proficiency,
                         "6d3728d4e9c9898458fe5e9532951132", // Light Armor Proficiency,
-                        "46f4fb320f35704488ba3d513397789d"  // Medium Armor Proficiency
+                        "46f4fb320f35704488ba3d513397789d",  // Medium Armor Proficiency
+                        "cb8686e7357a68c42bdd9d4e65334633" // Shields proficiency
                 })
                 .AddProficiencies(new ArmorProficiencyGroup[] { }, null, new WeaponCategory[] { WeaponCategory.KineticBlast })
                 .SetDisplayName(DisplayName)

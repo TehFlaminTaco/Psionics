@@ -1,4 +1,5 @@
 ﻿using BlueprintCore.Blueprints.CustomConfigurators.Classes;
+using BlueprintCore.Blueprints.References;
 using Kingmaker.Blueprints.Classes;
 using Psionics.Abilities.Soulknife.Bladeskills;
 using System;
@@ -27,6 +28,7 @@ namespace Psionics.Feats.Soulknife.BladeSkills
                 .SetDisplayName(DisplayName)
                 .SetDescription(Description)
                 .AddPrerequisiteFeature(MindShield.BlueprintInstance, false)
+                .AddPrerequisiteFeature(FeatureRefs.TowerShieldProficiency.Reference.Get())
                 .SetIcon(Icon)
                 .AddFeatureIfHasFact(ExpandShieldAbility.BlueprintInstance, ExpandShieldAbility.BlueprintInstance, true)
                 .Configure();

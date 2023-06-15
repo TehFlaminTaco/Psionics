@@ -18,6 +18,8 @@ using System.Reflection;
 using Psionics.Feats.Soulknife.BladeSkills;
 using Psionics.Abilities.Soulknife;
 using Psionics.Abilities.Soulknife.Bladeskills;
+using Kingmaker.Blueprints.Classes;
+using System.Collections.Generic;
 
 namespace Psionics
 {
@@ -25,6 +27,8 @@ namespace Psionics
     {
         public static bool Enabled;
         public static readonly LogWrapper Logger = LogWrapper.Get("Psionics");
+
+        public static List<BlueprintFeature> PsionicFeats = new();
 
         public static bool Load(UnityModManager.ModEntry modEntry)
         {
@@ -72,6 +76,7 @@ namespace Psionics
 
                     PsionicFocus.Configure();
                     GainPsionicFocusAbility.Configure();
+                    GainPsionicFocusMoveAbility.Configure();
 
                     PowerPoints.Configure();
                     PowerPointPool.Configure();
@@ -82,7 +87,15 @@ namespace Psionics
                     MindbladeEnchantmentFeats.Configure();
                     EnhancedMindBladeFeat.Configure();
 
+                    ExtraBladeSkill.Configure();
+                    PsionicBody.Configure();
+                    PsionicMeditation.Configure();
                     WildTalentFeat.Configure();
+
+                    PsionicFeats.Add(ExtraBladeSkill.BlueprintInstance);
+                    PsionicFeats.Add(PsionicBody.BlueprintInstance);
+                    PsionicFeats.Add(PsionicMeditation.BlueprintInstance);
+                    PsionicFeats.Add(WildTalentFeat.BlueprintInstance);
 
                     MindBladeItem.Configure();
                     MindBoltItem.Configure();

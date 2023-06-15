@@ -19,13 +19,15 @@ namespace Psionics.Feats.Soulknife
         [Translate("Blade Skill")]
         private static readonly string DisplayName = "BladeSkillsFeat.Name";
         [Translate("Beginning at 2nd level and every even soulknife level thereafter, a soulknife may choose one of a number of abilities to add to her repertoire. Some blade skills have prerequisites that must be met before they can be chosen. All blade skills may only be chosen once and require the soulknife to be using her mind blade unless otherwise stated in the skill’s description.")]
-        private static readonly string Description = "BladeSkillsFeat.Description"; 
+        private static readonly string Description = "BladeSkillsFeat.Description";
+        private static string Icon = "assets/icons/formmindblade.png";
 
         public static void Configure()
         {
             BlueprintInstance = FeatureSelectionConfigurator.New(FeatName, FeatGUID)
                 .SetDisplayName(DisplayName)
                 .SetDescription(Description)
+                .SetIcon(Icon)
                 .SetAllFeatures(
                     AlterBladeFeat.BlueprintInstance,
                     BladeRushFeat.BlueprintInstance,

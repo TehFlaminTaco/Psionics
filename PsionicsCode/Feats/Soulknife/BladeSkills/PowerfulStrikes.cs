@@ -66,6 +66,7 @@ namespace Psionics.Feats.Soulknife.BladeSkills
             BlueprintInstance = FeatureConfigurator.New(FeatName, FeatGUID)
                 .SetDisplayName(DisplayName)
                 .SetDescription(Description)
+                .AddPrerequisiteFeature(PsychicStrikeFeat.BlueprintInstance)
                 .SetIcon(Icon)
                 .AddComponent<IncreaseFeatureRank>(f=>f.m_Feature = PsychicStrikeFeat.BlueprintInstance)
                 .Configure();

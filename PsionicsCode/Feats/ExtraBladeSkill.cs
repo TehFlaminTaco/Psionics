@@ -1,6 +1,8 @@
 ﻿using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using BlueprintCore.Blueprints.CustomConfigurators.Classes.Selection;
+using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
+using Kingmaker.Blueprints.Classes.Prerequisites;
 using Kingmaker.Blueprints.Classes.Selection;
 using Psionics.Abilities.Soulknife.Bladeskills;
 using Psionics.Feats.Soulknife;
@@ -30,11 +32,17 @@ namespace Psionics.Feats
                 .SetDisplayName(DisplayName)
                 .SetDescription(Description)
                 .SetIcon(Icon)
-                .AddPrerequisiteFeature(BladeSkillsFeat.BlueprintInstance)
                 .AddPrerequisiteStatValue(Kingmaker.EntitySystem.Stats.StatType.BaseAttackBonus, 2)
                 .SetRanks(10)
-                .OnConfigure(c=>c.m_AllFeatures = BladeSkillsFeat.BlueprintInstance.m_AllFeatures)
-                .Configure();
+                .OnConfigure(c=> {
+                    c.m_AllFeatures = BladeSkillsFeat.BlueprintInstance.m_AllFeatures;
+                    PrerequisiteFeature feat = new PrerequisiteFeature()
+                    {
+                        m_Feature = BladeSkillsFeat.BlueprintInstance.ToReference<BlueprintFeatureReference>()
+                    };
+                    c.ComponentsArray = c.ComponentsArray.Append(feat).ToArray();
+                })
+                .Configure(true);
         }
 
     }

@@ -178,6 +178,8 @@ namespace Psionics
                     LightningBladeSpendFocusAbility.Configure();
                     LightningBladeFeat.Configure();
                     MindBladeFinesse.Configure();
+                    PowerfulStrikes.Configure();
+                    PsionicTraining.Configure();
                     ReachingBladeBuff.Configure();
                     ReachingBladeAbility.Configure();
                     ReachingBlade.Configure();

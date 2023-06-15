@@ -51,6 +51,8 @@ namespace Psionics.Feats.Soulknife
                     LightningBladeFeat.BlueprintInstance,
                     MindBladeFinesse.BlueprintInstance,
                     MindShield.BlueprintInstance,
+                    PowerfulStrikes.BlueprintInstance,
+                    PsionicTraining.BlueprintInstance,
                     ReachingBlade.BlueprintInstance,
                     ReapersBladeFeat.BlueprintInstance,
                     RendingBlades.BlueprintInstance,

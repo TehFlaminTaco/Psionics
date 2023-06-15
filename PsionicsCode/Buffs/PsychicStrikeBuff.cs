@@ -78,14 +78,7 @@ namespace Psionics.Buffs
             };
 
             int res = new DiceFormulaEvaluator() { DiceFormula = num }.GetValue();
-            var multText = "";
-            if(evt.Initiator.Buffs.Enumerable.Any(c=>c.Blueprint == ReapersBladeBuff.BlueprintInstance))
-            {
-                multText = "x1.5 (Reaper's Blade)";
-                res = res + (res / 2);
-            }
-
-            evt.DamageModifiers.Add(new Modifier(res, $"{scale}d8{multText}", base.Fact, ModifierDescriptor.UntypedStackable));
+            evt.DamageModifiers.Add(new Modifier(res, $"{scale}d8", base.Fact, ModifierDescriptor.UntypedStackable));
         }
 
         public void OnEventDidTrigger(RuleCalculateWeaponStats evt)
@@ -112,9 +105,6 @@ namespace Psionics.Buffs
             {
                 ((Buff)base.Fact).Deactivate();
                 ((Buff)base.Fact).Remove();
-                var reapersBlade = rollAttackHit.Initiator.Buffs.Enumerable.FirstOrDefault(c => c.Blueprint == ReapersBladeBuff.BlueprintInstance);
-                reapersBlade?.Deactivate();
-                reapersBlade?.Remove();
             }
         }
     }

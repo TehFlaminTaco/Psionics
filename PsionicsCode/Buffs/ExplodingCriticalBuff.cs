@@ -46,16 +46,6 @@ namespace Psionics.Buffs
                     };
 
                     BaseDamage damage = description.CreateDamage();
-                    var reapersBlade = evt.Initiator.Buffs.Enumerable.FirstOrDefault(c => c.Blueprint == ReapersBladeBuff.BlueprintInstance);
-                    if (reapersBlade != null)
-                    {
-                        damage.EmpowerBonus.Set(1.5f, reapersBlade);
-                        reapersBlade.Deactivate();
-                        reapersBlade.Remove();
-                    }
-
-                    
-
                     evt.Add(damage);
                     PsionicFocus.Spend(evt.Initiator);
                 }

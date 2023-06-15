@@ -78,6 +78,7 @@ namespace Psionics.Equipment
                         vp.m_WeaponAnimationStyle = Kingmaker.View.Animation.WeaponAnimationStyle.Fist;
 
                     })
+                    .AddToFighterGroupFlags(WeaponFighterGroupFlags.Bows)
                     .SetIcon("assets/icons/mindbolt.png")
                     .SetAttackRange(Ranges[fsIndex]);
                 if (fsIndex == 0) config.AddToEnchantments(WeaponEnchantmentRefs.StrengthThrown.Reference.Get());

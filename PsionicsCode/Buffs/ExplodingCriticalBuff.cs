@@ -37,13 +37,25 @@ namespace Psionics.Buffs
                         m_Rolls = feat.Rank
                     };
 
-                    BaseDamage damage = new DamageDescription
+                    var description = new DamageDescription
                     {
                         TypeDescription = new DamageTypeDescription(),
                         Dice = num,
                         Bonus = 0,
-                        SourceFact = base.Fact
-                    }.CreateDamage();
+                        SourceFact = base.Fact,
+                    };
+
+                    BaseDamage damage = description.CreateDamage();
+                    var reapersBlade = evt.Initiator.Buffs.Enumerable.FirstOrDefault(c => c.Blueprint == ReapersBladeBuff.BlueprintInstance);
+                    if (reapersBlade != null)
+                    {
+                        damage.EmpowerBonus.Set(1.5f, reapersBlade);
+                        reapersBlade.Deactivate();
+                        reapersBlade.Remove();
+                    }
+
+                    
+
                     evt.Add(damage);
                     PsionicFocus.Spend(evt.Initiator);
                 }

@@ -68,6 +68,7 @@ namespace Psionics.Equipment
                         m_Dice = DamageSizes[fsIndex],
                         m_Rolls = 1
                     })
+                    .SetVisualParameters(WeaponTypeRefs.LightCrossbow.Reference.Get().VisualParameters.Clone())
                     .ModifyVisualParameters(vp =>
                     {
                         vp.m_WeaponModel = WeaponTypeRefs.Dart.Reference.Get().VisualParameters.m_WeaponModel;

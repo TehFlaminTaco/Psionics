@@ -1,5 +1,7 @@
 ﻿using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using Kingmaker.Blueprints.Classes;
+using Kingmaker.PubSubSystem;
+using Kingmaker.UnitLogic;
 using Psionics.Abilities;
 using Psionics.Resources;
 using System;

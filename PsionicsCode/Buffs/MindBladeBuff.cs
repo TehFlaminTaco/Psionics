@@ -26,6 +26,10 @@ using Psionics.Resources;
 using BlueprintCore.Utils;
 using Psionics.Abilities.Soulknife;
 using Kingmaker.UnitLogic.ActivatableAbilities;
+using Kingmaker.EntitySystem.Entities;
+using Kingmaker.UnitLogic.Buffs;
+using Kingmaker.EntitySystem;
+using static Psionics.Buffs.MindBoltBuff;
 
 namespace Psionics.Buffs
 {
@@ -37,20 +41,26 @@ namespace Psionics.Buffs
             public ItemEntityWeapon Applied;
             [JsonProperty]
             public ItemEntityWeapon Twin;
+
+
+            [JsonProperty]
+            public int m_Enhancement;
+            [JsonProperty]
+            public string[] m_Enchantments;
         }
 
         [TypeId("9f60c4c8-bdca-4e20-8cba-cb2e755257d3")]
-        public class AddMindBlades : UnitBuffComponentDelegate<AddMindBladeData>, IAreaActivationHandler, IGlobalSubscriber, ISubscriber
+        public class AddMindBlades : UnitBuffComponentDelegate<AddMindBladeData>, IAreaActivationHandler, IGlobalSubscriber, ISubscriber, IUnitBuffHandler
         {
             public override void OnActivate()
             {
                 if (base.Owner.TryGet(FormMindBoltAbility.BlueprintInstance, out ActivatableAbility ab) && ab.IsTurnedOn)
                     ab.TurnOffImmediately();
-                Main.Logger.Info("Trying to add mind blade!");
+                if (Data.m_Enchantments == null) // Hasn't been initialized yet!
+                    this.HandleBuffDidAdded(this.Fact as Buff);
                 base.OnActivate();
                 if (!base.Owner.HasMoveAction() && !base.Owner.HasFact(SoulknifeQuickDraw.BlueprintInstance))
                 {
-                    Main.Logger.Info("No move action :(");
                     var formAbility = this.Owner.ActivatableAbilities.Enumerable.Where(c => c.Blueprint == FormMindBladeAbility.BlueprintInstance).FirstOrDefault();
                     if (formAbility is not null && formAbility.IsOn)
                         formAbility.IsTurnedOn = false;
@@ -76,7 +86,6 @@ namespace Psionics.Buffs
                 Enchant(base.Data.Applied, twinned);
                 if (!base.Owner.Body.PrimaryHand.CanInsertItem(base.Data.Applied))
                 {
-                    Main.Logger.Info("Failed to add mind blade! CanInserItem returned false!");
                     base.Data.Applied = null;
                     PFLog.Default.Error("Can't insert mind blade to main hand");
                     return;
@@ -94,7 +103,6 @@ namespace Psionics.Buffs
                 using (ContextData<ItemsCollection.SuppressEvents>.Request())
                 {
                     base.Owner.Body.PrimaryHand.InsertItem(base.Data.Applied);
-                    Main.Logger.Info("Finished to adding mind blade!");
                     if (base.Data.Twin is not null && base.Owner.Body.SecondaryHand.CanInsertItem(base.Data.Twin))
                     {
                         base.Owner.Body.SecondaryHand.InsertItem(base.Data.Twin);
@@ -132,23 +140,17 @@ namespace Psionics.Buffs
 
             public void Enchant(ItemEntityWeapon wep, bool twinned)
             {
-                if (base.Owner.HasFact(EnhancedMindBladeFeat.BlueprintInstance))
+                int sparePoints = Data.m_Enhancement;
+                if (twinned) sparePoints--;
+                if (sparePoints <= 0)
                 {
-                    int sparePoints = base.Owner.Resources.GetResource(MindbladeEnhancement.BlueprintInstance).Amount;
-                    if (twinned)
-                        if (Owner.GetFeature(FullEnhancement.BlueprintInstance) == null)
-                            sparePoints--;
-                    if (sparePoints == 0)
-                        return;
-                    if(sparePoints > 0) {
-                        foreach(var ability in base.Owner.ActivatableAbilities.Enumerable.Where(c=>c.IsOn).Select(c=>c.Blueprint).Where(c => EnhanceMindBladeAbility.enchantmentByBlueprint.ContainsKey(c)).Distinct())
-                        {
-                            var ench = EnhanceMindBladeAbility.enchantmentByBlueprint[ability];
-                            wep.AddEnchantment(BlueprintTool.GetRef<BlueprintItemEnchantmentReference>(ench.Target).Get(), null, null);
-                        }
-                        wep.AddEnchantment(BlueprintTool.GetRef<BlueprintItemEnchantmentReference>(EnhanceMindBladeAbility.Enhancement[Math.Min(sparePoints - 1, 4)]).Get(), null, null);
-                    }
+                    return;
                 }
+                foreach (var ability in Data.m_Enchantments)
+                {
+                    wep.AddEnchantment(BlueprintTool.GetRef<BlueprintItemEnchantmentReference>(ability).Get(), Context, null);
+                }
+                wep.AddEnchantment(BlueprintTool.GetRef<BlueprintItemEnchantmentReference>(EnhanceMindBladeAbility.Enhancement[Math.Min(sparePoints - 1, 4)]).Get(), Context, null);
             }
 
             public override void ApplyValidation(ValidationContext context, int parentIndex)
@@ -175,6 +177,43 @@ namespace Psionics.Buffs
                     OnActivate();
                     OnTurnOn();
                 }
+            }
+
+            public void HandleBuffDidAdded(Buff buff)
+            {
+                if (buff == this.Fact)
+                {
+                    var data = buff.GetData<AddMindBlades, AddMindBladeData>();
+                    if (!buff.Owner.HasFact(EnhancedMindBladeFeat.BlueprintInstance))
+                    {
+                        data.m_Enhancement = 0;
+                        data.m_Enchantments = new string[0];
+                        return;
+                    }
+                    int sparePoints = buff.Owner.Resources.GetResource(MindbladeEnhancement.BlueprintInstance).Amount;
+                    if (sparePoints == 0)
+                    {
+                        data.m_Enhancement = 0;
+                        data.m_Enchantments = new string[0];
+                        return;
+                    }
+                    if (sparePoints > 0)
+                    {
+                        List<string> enchantments = new();
+                        foreach (var ability in buff.Owner.ActivatableAbilities.Enumerable.Where(c => c.IsOn).Select(c => c.Blueprint).Where(c => EnhanceMindBladeAbility.enchantmentByBlueprint.ContainsKey(c)).Distinct())
+                        {
+                            var ench = EnhanceMindBladeAbility.enchantmentByBlueprint[ability];
+                            enchantments.Add(ench.Target);
+                        }
+                        data.m_Enhancement = Math.Min(sparePoints, 5);
+                        data.m_Enchantments = enchantments.ToArray();
+                    }
+                }
+            }
+
+            public void HandleBuffDidRemoved(Buff buff)
+            {
+
             }
         }
 

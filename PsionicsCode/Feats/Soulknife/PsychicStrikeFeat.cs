@@ -28,6 +28,7 @@ namespace Psionics.Feats.Soulknife
                 .SetIsClassFeature(true)
                 .AddFeatureIfHasFact(PsychicStrikeAbility.BlueprintInstance, PsychicStrikeAbility.BlueprintInstance, true)
                 .AddFeatureIfHasFact(PsychicStrikeFreeAbility.BlueprintInstance, PsychicStrikeFreeAbility.BlueprintInstance, true)
+                .SetRanks(10)
                 .Configure();
         }
     }

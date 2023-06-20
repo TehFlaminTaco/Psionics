@@ -1,5 +1,8 @@
 ﻿using BlueprintCore.Blueprints.CustomConfigurators;
 using Kingmaker.Blueprints;
+using Kingmaker.EntitySystem.Entities;
+using Kingmaker.PubSubSystem;
+using Psionics.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +21,6 @@ namespace Psionics.Resources
             BlueprintInstance = AbilityResourceConfigurator.New(ResourceName, ResourceGUID)
                 .SetMaxAmount(
                     ResourceAmountBuilder.New(0)
-                        .IncreaseByLevel(new string[] { "48ac8db94d5de7645906c7d0ad3bcfbd" }, 1)
                 )
                 .Configure();
         }

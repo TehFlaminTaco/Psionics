@@ -1,10 +1,16 @@
-﻿using Kingmaker.Blueprints.Classes;
+﻿using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
+using Kingmaker.Blueprints;
+using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Facts;
 using Kingmaker.Blueprints.Items.Weapons;
 using Kingmaker.EntitySystem.Entities;
+using Kingmaker.UI.MVVM._PCView.GroupChanger;
 using Kingmaker.UnitLogic;
+using Kingmaker.UnitLogic.Abilities.Components;
 using Kingmaker.UnitLogic.Buffs;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
+using Psionics.Buffs;
+using Psionics.Powers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +34,16 @@ namespace Psionics
         {
             fact = unit.GetFeature(bp);
             return fact != null;
+        }
+
+        public static string GetFocusType(this UnitEntityData unit)
+        {
+            for(int i=0; i < 4; i++)
+            {
+                if (unit.Buffs.GetBuff(ElementalFocus.BlueprintInstances[i]) != null)
+                    return ElementalFocus.ElementNames[i];
+            }
+            return "None";
         }
 
         public static WeaponVisualParameters Clone(this WeaponVisualParameters th)
@@ -57,5 +73,40 @@ namespace Psionics
                 m_InventoryTakeSound = th.m_InventoryTakeSound
             };
         }
+
+        public static Dictionary<string, string> cachedGUIDS = new();
+        public static string HashGUID(this string t)
+        {
+            if (cachedGUIDS.TryGetValue(t, out string cached))
+            {
+                Psionics.HashGUID.Last = cached;
+                return t;
+            }
+            var rng = new Random(t.GetHashCode());
+            var bytes = new byte[16];
+            rng.NextBytes(bytes);
+            var guid = new Guid(bytes).ToString();
+            if (cachedGUIDS.ContainsValue(guid))
+            {
+                throw new Exception($"HashGUID Collision! Collides between {t} and {cachedGUIDS.First(c => c.Value == guid).Key}");
+            }
+            Psionics.HashGUID.Last = guid;
+            cachedGUIDS[t] = guid;
+            return t;
+        }
+
+        public static AbilityConfigurator Augmentable(this AbilityConfigurator ac, Action<Augmentable> action)
+        {
+            var augmentable = new Augmentable();
+            if (action != null) action(augmentable);
+            ac.AddComponent(augmentable);
+            ac.AddAbilityVariants(augmentable.Configure().Append(augmentable.Castable).Select(c => (BlueprintCore.Utils.Blueprint<BlueprintAbilityReference>)c.ToReference<BlueprintAbilityReference>()).ToList());
+            return ac;
+        }
+    }
+
+    public static class HashGUID
+    {
+        public static string Last;
     }
 }

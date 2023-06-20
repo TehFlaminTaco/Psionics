@@ -49,6 +49,20 @@ namespace Psionics.Buffs
         }
     }
 
+    [TypeId("9d387349-9def-464f-a9e2-ba5751829523")]
+    public class PrerequisiteHasElementalFocus : BlueprintComponent, IAbilityCasterRestriction
+    {
+        public string GetAbilityCasterRestrictionUIText()
+        {
+            return $"An elemental focus type is required!";
+        }
+
+        public bool IsCasterRestrictionPassed(UnitEntityData caster)
+        {
+            return caster.Buffs.Enumerable.Any(c => ElementalFocus.BlueprintInstances.Contains(c.Blueprint));
+        }
+    }
+
     public static class PsionicFocusExt {
         public static AbilityConfigurator RequirePsionicFocus(this AbilityConfigurator ab, bool not = false)
         {
@@ -70,6 +84,7 @@ namespace Psionics.Buffs
 
         public static void Configure()
         {
+            ElementalFocus.Configure();
             BlueprintInstance = BuffConfigurator.New(BuffName, BuffGUID)
                 .SetDisplayName(DisplayName)
                 .SetDescription(Description)

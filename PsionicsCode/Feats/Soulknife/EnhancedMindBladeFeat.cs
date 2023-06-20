@@ -30,6 +30,7 @@ namespace Psionics.Feats.Soulknife
                 .SetIcon(Icon)
                 .SetIsClassFeature(true)
                 .AddAbilityResources(0, MindbladeEnhancement.BlueprintInstance, true, true, false)
+                .SetRanks(10)
                 .Configure();
         }
     }

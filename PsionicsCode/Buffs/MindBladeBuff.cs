@@ -229,7 +229,7 @@ namespace Psionics.Buffs
             BlueprintInstance = BuffConfigurator.New($"MindBladeBuff", BuffGUID)
                 .SetDisplayName(DisplayName)
                 .SetDescription(Description)
-                .AddComponent(new AddMindBlades())
+                .AddComponent<AddMindBlades>()
                 .Configure();
         }
     }

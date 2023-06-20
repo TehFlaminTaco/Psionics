@@ -20,6 +20,8 @@ using Psionics.Abilities.Soulknife;
 using Psionics.Abilities.Soulknife.Bladeskills;
 using Kingmaker.Blueprints.Classes;
 using System.Collections.Generic;
+using Psionics.Feats.Psion;
+using Psionics.Powers.Level1;
 
 namespace Psionics
 {
@@ -52,6 +54,24 @@ namespace Psionics
         {
             Enabled = value;
             return true;
+        }
+
+        public static void ConfigurePowers()
+        {
+            EnergyRay.Configure();
+        }
+
+        public static void ConfigureFeats()
+        {
+            ExtraBladeSkill.Configure();
+            PsionicBody.Configure();
+            PsionicMeditation.Configure();
+            WildTalentFeat.Configure();
+
+            PsionicFeats.Add(ExtraBladeSkill.BlueprintInstance);
+            PsionicFeats.Add(PsionicBody.BlueprintInstance);
+            PsionicFeats.Add(PsionicMeditation.BlueprintInstance);
+            PsionicFeats.Add(WildTalentFeat.BlueprintInstance);
         }
 
         [HarmonyPatch(typeof(BlueprintsCache))]
@@ -87,119 +107,12 @@ namespace Psionics
                     MindbladeEnchantmentFeats.Configure();
                     EnhancedMindBladeFeat.Configure();
 
-                    ExtraBladeSkill.Configure();
-                    PsionicBody.Configure();
-                    PsionicMeditation.Configure();
-                    WildTalentFeat.Configure();
+                    ConfigurePowers();
 
-                    PsionicFeats.Add(ExtraBladeSkill.BlueprintInstance);
-                    PsionicFeats.Add(PsionicBody.BlueprintInstance);
-                    PsionicFeats.Add(PsionicMeditation.BlueprintInstance);
-                    PsionicFeats.Add(WildTalentFeat.BlueprintInstance);
+                    ConfigureFeats();
 
-                    MindBladeItem.Configure();
-                    MindBoltItem.Configure();
-                    SoulknifeProficiencies.Configure();
-                    MindBladeBuff.Configure();
-                    MindBladeShapeBuff.Configure();
-                    MindBoltBuff.Configure();
-                    MindBoltShapeFeat.Configure();
-                    FormMindBladeAbility.Configure();
-                    FormMindBoltAbility.Configure();
-                    ShapeMindBladeAbility.Configure();
-                    ShapeMindBladeFeat.Configure();
-                    TwinMindBlade.Configure();
-                    FormMindBladeFeat.Configure();
-                    FormMindBoltFeat.Configure();
-                    ThrowMindBladeAbility.Configure();
-                    ThrowMindBladeFeat.Configure();
-                    SoulknifeKineticBlastFeature.Configure();
-                    SoulKnifeBonusFeat.Configure();
-                    SoulknifeQuickDraw.Configure();
-                    PsychicStrikeBuff.Configure();
-                    PsychicStrikeAbility.Configure();
-                    PsychicStrikeFreeAbility.Configure();
-                    PsychicStrikeFeat.Configure();
-
-                    // Pulled up because a few blade skills need this.
-                    MindShield.Configure();
-
-                    ShapeMindBladeFreeAbility.Configure();
-                    AlterBladeFeat.Configure();
-                    BladeRushBuff.Configure();
-                    BladeRushAbility.Configure();
-                    BladeRushFeat.Configure();
-                    BladestormAbility.Configure();
-                    BladestormFeat.Configure();
-                    BladewindSpendPsionicStrikeAbility.Configure();
-                    BladewindAbility.Configure();
-                    BladewindFeat.Configure();
-                    DazzlingBladeAbility.Configure();
-                    DazzlingBladeFeat.Configure();
-                    DeadlyBlow.Configure();
-                    DispellingStrikeAbility.Configure();
-                    DispellingStrikeFeat.Configure();
-                    DisruptedBuff.Configure();
-                    DisruptingStrikeAbility.Configure();
-                    DisruptingStrikeFeat.Configure();
-                    DuelingBladeBuff.Configure();
-                    DuelingBladeAbility.Configure();
-                    DuelingBladeFeat.Configure();
-                    EnhancedRange.Configure();
-                    MindTowerShieldItem.Configure();
-                    MindTowerShieldBuff.Configure();
-                    ExpandShieldAbility.Configure();
-                    ExpandShieldFeat.Configure();
-                    ExplodingCriticalBuff.Configure();
-                    ExplodingCriticalAbility.Configure();
-                    ExplodingCriticalFeat.Configure();
-                    FireBladeBuff.Configure();
-                    FireBladeSpendFocusBuff.Configure();
-                    FireBladeAbility.Configure();
-                    FireBladeSpendFocusAbility.Configure(); 
-                    FireBladeFeat.Configure();
-                    FullEnhancement.Configure();
-                    GruesomeRiposteBuff.Configure();
-                    GruesomeRiposteAbility.Configure();
-                    GruesomeRiposteFeat.Configure();
-                    IceBladeSlowedBuff.Configure();
-                    IceBladeBuff.Configure();
-                    IceBladeSpendFocusBuff.Configure();
-                    IceBladeAbility.Configure();
-                    IceBladeSpendFocusAbility.Configure();
-                    IceBladeFeat.Configure();
-                    ImprovedEnhancement.Configure();
-                    ImprovedMindShield.Configure();
-                    LaunchMultibolt.Configure();
-                    LightningBladeDebuff.Configure();
-                    LightningBladeBuff.Configure();
-                    LightningBladeSpendFocusBuff.Configure();
-                    LightningBladeAbility.Configure();
-                    LightningBladeSpendFocusAbility.Configure();
-                    LightningBladeFeat.Configure();
-                    MindBladeFinesse.Configure();
-                    PowerfulStrikes.Configure();
-                    PsionicTraining.Configure();
-                    ReachingBladeBuff.Configure();
-                    ReachingBladeAbility.Configure();
-                    ReachingBlade.Configure();
-                    ReapersBladeFeat.Configure();
-                    RendingBlades.Configure();
-                    TelekineticBolt.Configure();
-                    ThunderBladeDebuff.Configure();
-                    ThunderBladeBuff.Configure();
-                    ThunderBladeSpendFocusBuff.Configure();
-                    ThunderBladeAbility.Configure();
-                    ThunderBladeSpendFocusAbility.Configure();
-                    ThunderBladeFeat.Configure();
-                    FormTowerMindShield.Configure();
-                    TowerMindShieldFeat.Configure();
-                    TwoHandedThrow.Configure();
-
-                    BladeSkillsFeat.Configure();
-
-                    SoulknifeProgression.Configure();
                     Soulknife.Configure();
+                    Psion.Configure();
 
                     Logger.Info("Done! Successfully?");
                 }

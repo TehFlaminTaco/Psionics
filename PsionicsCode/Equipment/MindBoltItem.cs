@@ -57,8 +57,7 @@ namespace Psionics.Equipment
             for(int fsIndex = 0; fsIndex < 3; fsIndex++)
             {
                 var config = WeaponTypeConfigurator.New($"MindBolt{MindBoltShapes[fsIndex]}", TypeGUIDs[fsIndex])
-                    .CopyFrom(WeaponTypeRefs.LightCrossbow)
-                    .ModifyVisualParameters(vp => vp.m_WeaponModel = null)
+                    //.CopyFrom(WeaponTypeRefs.LightCrossbow)
                     .SetIsTwoHanded(fsIndex != 1)
                     .SetCategory(Kingmaker.Enums.WeaponCategory.KineticBlast)
                     .SetCriticalRollEdge(19)

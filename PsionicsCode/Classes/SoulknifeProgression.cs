@@ -1,4 +1,5 @@
 ﻿using BlueprintCore.Blueprints.CustomConfigurators.Classes;
+using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Psionics.Buffs;
 using Psionics.Feats;
@@ -21,6 +22,11 @@ namespace Psionics.Classes
         public static void Configure()
         {
             ProgressionBlueprint = ProgressionConfigurator.New(ProgressionName, ProgressionGUID)
+               .OnConfigure(c=>c.m_Classes = new[]{new BlueprintProgression.ClassWithLevel()
+               {
+                   m_Class = Soulknife.ClassBlueprint.ToReference<BlueprintCharacterClassReference>(),
+                   AdditionalLevel = 0
+               }})
                .SetLevelEntry(01, SoulknifeProficiencies.SoulknifeProficienciesBlueprint,
                                  FormMindBladeFeat.FormMindBladeBlueprint,
                                  ShapeMindBladeFeat.BlueprintInstance,
@@ -47,7 +53,7 @@ namespace Psionics.Classes
                .SetLevelEntry(18, BladeSkillsFeat.BlueprintInstance)
                .SetLevelEntry(19, PsychicStrikeFeat.BlueprintInstance, EnhancedMindBladeFeat.BlueprintInstance)
                .SetLevelEntry(20, BladeSkillsFeat.BlueprintInstance)
-               .Configure();
+               .Configure(true);
         }
     }
 }

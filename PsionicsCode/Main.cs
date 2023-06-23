@@ -22,6 +22,7 @@ using Kingmaker.Blueprints.Classes;
 using System.Collections.Generic;
 using Psionics.Feats.Psion;
 using Psionics.Powers.Level1;
+using Psionics.AreaEffect;
 
 namespace Psionics
 {
@@ -58,7 +59,21 @@ namespace Psionics
 
         public static void ConfigurePowers()
         {
+            BoltBuff.Configure();
+            Bolt.Configure();
+            BrokerBuff.Configure();
+            Broker.Configure();
+            CircumstanceShieldBuff.Configure();
+            CircumstanceShield.Configure();
+            CrystalShard.Configure();
+            DecelerationBuff.Configure();
+            Deceleration.Configure();
+            Demoralize.Configure();
+            DissipatingTouch.Configure();
             EnergyRay.Configure();
+            EctoplasmicSheenBuff.Configure();
+            EctoplasmicSheenAreaEffect.Configure();
+            EctoplasmicSheen.Configure();
         }
 
         public static void ConfigureFeats()

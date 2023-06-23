@@ -48,6 +48,12 @@ using System.Runtime.Remoting.Contexts;
 using Kingmaker.PubSubSystem;
 using Psionics.Buffs;
 using QuickGraph;
+using Kingmaker.RuleSystem;
+using BlueprintCore.Utils.Types;
+using Kingmaker.RuleSystem.Rules.Damage;
+using Kingmaker.Enums.Damage;
+using Kingmaker.Blueprints.Classes.Spells;
+using static Kingmaker.Visual.Animation.Kingmaker.Actions.UnitAnimationActionCastSpell;
 
 namespace Psionics.Powers.Level1
 {
@@ -81,6 +87,11 @@ namespace Psionics.Powers.Level1
     [TypeId("efa12e79-7490-457e-a164-1e39ef0578c3")]
     public class ConfigureDamage : ContextAction
     {
+        public bool Elemental = false;
+        public Augment? ScaleDamageWith;
+        public DiceType Dice = DiceType.D6;
+        public int MinDice = 1;
+
         public override string GetCaption()
         {
             return "Configure Elemental Damage";
@@ -94,79 +105,35 @@ namespace Psionics.Powers.Level1
                 Main.Logger.Error("Damager not found?");
                 return;
             }
-            int power = 1;
-            power += Augmentable.GetRank(Context.MaybeCaster, EnergyRay.PowerAugment);
+            int power = MinDice;
+            if(ScaleDamageWith.HasValue)
+                power += Augmentable.GetRank(Context.MaybeCaster, ScaleDamageWith.Value);
             var focus = Context.MaybeCaster.GetFocusType();
-            switch (focus)
+            if (Elemental)
             {
-                case "Fire":
-                    damager.DamageType.Energy = Kingmaker.Enums.Damage.DamageEnergyType.Fire;
-                    damager.Value = new Kingmaker.UnitLogic.Mechanics.ContextDiceValue()
-                    {
-                        DiceType = Kingmaker.RuleSystem.DiceType.D6,
-                        DiceCountValue = new Kingmaker.UnitLogic.Mechanics.ContextValue()
-                        {
-                            ValueType = Kingmaker.UnitLogic.Mechanics.ContextValueType.Simple,
-                            Value = power
-                        },
-                        BonusValue = new Kingmaker.UnitLogic.Mechanics.ContextValue()
-                        {
-                            ValueType = Kingmaker.UnitLogic.Mechanics.ContextValueType.Simple,
-                            Value = 1
-                        }
-                    };
-                    break;
-                case "Electricity":
-                    damager.DamageType.Energy = Kingmaker.Enums.Damage.DamageEnergyType.Electricity;
-                    damager.Value = new Kingmaker.UnitLogic.Mechanics.ContextDiceValue()
-                    {
-                        DiceType = Kingmaker.RuleSystem.DiceType.D6,
-                        DiceCountValue = new Kingmaker.UnitLogic.Mechanics.ContextValue()
-                        {
-                            ValueType = Kingmaker.UnitLogic.Mechanics.ContextValueType.Simple,
-                            Value = power
-                        },
-                        BonusValue = new Kingmaker.UnitLogic.Mechanics.ContextValue()
-                        {
-                            ValueType = Kingmaker.UnitLogic.Mechanics.ContextValueType.Simple,
-                            Value = 0
-                        }
-                    };
-                    break;
-                case "Cold":
-                    damager.DamageType.Energy = Kingmaker.Enums.Damage.DamageEnergyType.Cold;
-                    damager.Value = new Kingmaker.UnitLogic.Mechanics.ContextDiceValue()
-                    {
-                        DiceType = Kingmaker.RuleSystem.DiceType.D6,
-                        DiceCountValue = new Kingmaker.UnitLogic.Mechanics.ContextValue()
-                        {
-                            ValueType = Kingmaker.UnitLogic.Mechanics.ContextValueType.Simple,
-                            Value = power
-                        },
-                        BonusValue = new Kingmaker.UnitLogic.Mechanics.ContextValue()
-                        {
-                            ValueType = Kingmaker.UnitLogic.Mechanics.ContextValueType.Simple,
-                            Value = 1
-                        }
-                    };
-                    break;
-                case "Sonic":
-                    damager.DamageType.Energy = Kingmaker.Enums.Damage.DamageEnergyType.Sonic;
-                    damager.Value = new Kingmaker.UnitLogic.Mechanics.ContextDiceValue()
-                    {
-                        DiceType = Kingmaker.RuleSystem.DiceType.D6,
-                        DiceCountValue = new Kingmaker.UnitLogic.Mechanics.ContextValue()
-                        {
-                            ValueType = Kingmaker.UnitLogic.Mechanics.ContextValueType.Simple,
-                            Value = power
-                        },
-                        BonusValue = new Kingmaker.UnitLogic.Mechanics.ContextValue()
-                        {
-                            ValueType = Kingmaker.UnitLogic.Mechanics.ContextValueType.Simple,
-                            Value = -1
-                        }
-                    };
-                    break;
+                switch (focus)
+                {
+                    case "Fire":
+                        damager.DamageType.Energy = Kingmaker.Enums.Damage.DamageEnergyType.Fire;
+                        damager.Value = ContextDice.Value(Dice, MinDice + power, power);
+                        break;
+                    case "Electricity":
+                        damager.DamageType.Energy = Kingmaker.Enums.Damage.DamageEnergyType.Electricity;
+                        damager.Value = ContextDice.Value(Dice, MinDice + power, 0);
+                        break;
+                    case "Cold":
+                        damager.DamageType.Energy = Kingmaker.Enums.Damage.DamageEnergyType.Cold;
+                        damager.Value = ContextDice.Value(Dice, MinDice + power, power);
+                        break;
+                    case "Sonic":
+                        damager.DamageType.Energy = Kingmaker.Enums.Damage.DamageEnergyType.Sonic;
+                        damager.Value = ContextDice.Value(Dice, MinDice + power, -power);
+                        break;
+                }
+            }
+            else
+            {
+                damager.Value = ContextDice.Value(Dice, MinDice + power);
             }
         }
     }
@@ -187,14 +154,14 @@ namespace Psionics.Powers.Level1
         {
             BaseName = "EnergyRay",
             Name = "Power",
-            Description = "EnergyRay_Power.Description".Translate("You can augment this power in one of the following ways. 1. For every additional power point you spend, this power’s damage increases by one die"),
+            Description = "EnergyRay_Power.Description".Translate("For every additional power point you spend, this power’s damage increases by one die"),
             Cost = 1,
             MaxRank = 29
         };
 
         [Translate("Energy Ray")]
         private static readonly string DisplayName = "EnergyRay.Name";
-        [Translate("You create a ray of energy of your active energy type (cold, electricity, fire, or sonic) that shoots forth from your fingertip and strikes a target within range, dealing 1d6 points of damage, if you succeed on a ranged touch attack with the ray.\r\n\r\n{b}Cold{/b} A ray of this energy type deals +1 point of damage per die.\r\n\r\n{b}Electricity{/b} Manifesting a ray of this energy type provides a +3 bonus on your attack roll if the target is wearing metal armor and a +2 bonus on manifester level checks for the purpose of overcoming power resistance.\r\n\r\n{b}Fire{/b} A ray of this energy type deals +1 point of damage per die.\r\n\r\n{b}Sonic{/b} A ray of this energy type deals –1 point of damage per die and ignores an object’s hardness. This power’s subtype is the same as the type of energy you manifest.\r\n\r\nAugment You can augment this power in one of the following ways. 1. For every additional power point you spend, this power’s damage increases by one die (d6). 2. If you expend your psionic focus when manifesting this power, the cost of the power is reduced by 1 (to a minimum of 0), but the damage is reduced to 1d3 and it cannot be further augmented.")]
+        [Translate("You create a ray of energy of your active energy type (cold, electricity, fire, or sonic) that shoots forth from your fingertip and strikes a target within range, dealing 1d6 points of damage, if you succeed on a ranged touch attack with the ray.\n<b>Cold</b> A ray of this energy type deals +1 point of damage per die.\n<b>Electricity</b> Manifesting a ray of this energy type provides a +3 bonus on your attack roll if the target is wearing metal armor and a +2 bonus on manifester level checks for the purpose of overcoming power resistance.\n<b>Fire</b> A ray of this energy type deals +1 point of damage per die.\n<b>Sonic</b> A ray of this energy type deals –1 point of damage per die and ignores an object’s hardness. This power’s subtype is the same as the type of energy you manifest.\nAugment You can augment this power in one of the following ways. 1. For every additional power point you spend, this power’s damage increases by one die (d6).\n 2. If you expend your psionic focus when manifesting this power, the cost of the power is reduced by 1 (to a minimum of 0), but the damage is reduced to 1d3 and it cannot be further augmented.", true)]
         private static readonly string Description = "EnergyRay.Description";
         private static readonly string Icon = "assets/icons/energyray.png";
 
@@ -203,21 +170,24 @@ namespace Psionics.Powers.Level1
             BlueprintInstance = AbilityConfigurator.New(AbilityName, AbilityGUID)
                 .SetDisplayName(DisplayName)
                 .SetDescription(Description)
+                .AddComponent<SpellComponent>(sp => sp.School = SpellSchool.Evocation)
                 .AddComponent<ConstantCountText>(cct=>cct.Text = -1)
                 .Augmentable(
                     a =>
                     {
-                        a.Castable = CastBlueprint = AbilityConfigurator.New($"{AbilityName}_Cast".HashGUID(), HashGUID.Last)
-                            .SetDisplayName(DisplayName)
+                        a.Cantrip = AbilityConfigurator.New($"{AbilityName}_Talent".HashGUID(), HashGUID.Last)
+                            .SetDisplayName($"{AbilityName}_Talent.Name".Translate("Energy Ray (Talent)"))
                             .SetDescription(Description)
                             .SetIcon(Icon)
                             .SetRange(Range)
                             .SetActionType(ActionType)
                             .SetType(TypeAbility)
-                            .SetAnimation(Kingmaker.Visual.Animation.Kingmaker.Actions.UnitAnimationActionCastSpell.CastAnimationStyle.Directional)
+                            .AddComponent<ConstantCountText>(cct => cct.Text = -1)
+                            .SetAnimation(CastAnimationStyle.Directional)
                             .AddComponent<ElectricalBonusAttack>()
+                            .AddComponent<SpellComponent>(sp => sp.School = SpellSchool.Evocation)
+                            .RequirePsionicFocus()
                             .SetCanTargetFriends(false)
-                            .SetCanTargetSelf(false)
                             .SetCanTargetSelf(false)
                             .SetCanTargetEnemies(true)
                             .SetSpellResistance(true)
@@ -229,42 +199,58 @@ namespace Psionics.Powers.Level1
                                 adp.NeedAttackRoll = true;
                             })
                             .AddAbilityEffectRunAction(ActionsBuilder.New()
-                                .Add<ConfigureDamage>()
+                                .Add<ConfigureDamage>(cd =>
+                                {
+                                    cd.Elemental = true;
+                                    cd.Dice = DiceType.D3;
+                                })
                                 .Add<ContextActionDealDamage>(cadd => {
-                                    cadd.DamageType = new Kingmaker.RuleSystem.Rules.Damage.DamageTypeDescription()
+                                    cadd.DamageType = new DamageTypeDescription()
                                     {
-                                        Energy = Kingmaker.Enums.Damage.DamageEnergyType.Fire,
-                                        Type = Kingmaker.RuleSystem.Rules.Damage.DamageType.Energy
+                                        Energy = DamageEnergyType.Fire,
+                                        Type = DamageType.Energy
                                     };
-                                    cadd.Duration = new Kingmaker.UnitLogic.Mechanics.ContextDurationValue()
+                                    cadd.Duration = ContextDuration.Fixed(0);
+                                    cadd.Value = ContextDice.Value(DiceType.Zero, 0, 0);
+                                })
+                                .Add<SpendPsionicFocus>()
+                            )
+                            .Configure();
+                        a.Castable = CastBlueprint = AbilityConfigurator.New($"{AbilityName}_Cast".HashGUID(), HashGUID.Last)
+                            .SetDisplayName(DisplayName)
+                            .SetDescription(Description)
+                            .SetIcon(Icon)
+                            .SetRange(Range)
+                            .SetActionType(ActionType)
+                            .SetType(TypeAbility)
+                            .SetAnimation(CastAnimationStyle.Directional)
+                            .AddComponent<ElectricalBonusAttack>()
+                            .AddComponent<SpellComponent>(sp =>sp.School = SpellSchool.Evocation)
+                            .SetCanTargetFriends(false)
+                            .SetCanTargetSelf(false)
+                            .SetCanTargetEnemies(true)
+                            .SetSpellResistance(true)
+                            .AddComponent<PrerequisiteHasElementalFocus>()
+                            .AddComponent<AbilityDeliverProjectile>(adp =>
+                            {
+                                adp.m_LineWidth = 5.Feet();
+                                adp.m_Weapon = ItemWeaponRefs.RayItem.Reference.Get().ToReference<BlueprintItemWeaponReference>();
+                                adp.NeedAttackRoll = true;
+                            })
+                            .AddAbilityEffectRunAction(ActionsBuilder.New()
+                                .Add<ConfigureDamage>(cd =>
+                                {
+                                    cd.Elemental = true;
+                                    cd.ScaleDamageWith = PowerAugment;
+                                })
+                                .Add<ContextActionDealDamage>(cadd => {
+                                    cadd.DamageType = new DamageTypeDescription()
                                     {
-                                        Rate = Kingmaker.UnitLogic.Mechanics.DurationRate.Rounds,
-                                        DiceType = Kingmaker.RuleSystem.DiceType.Zero,
-                                        DiceCountValue = new Kingmaker.UnitLogic.Mechanics.ContextValue()
-                                        {
-                                            ValueType = Kingmaker.UnitLogic.Mechanics.ContextValueType.Simple,
-                                            Value = 0
-                                        },
-                                        BonusValue = new Kingmaker.UnitLogic.Mechanics.ContextValue()
-                                        {
-                                            ValueType = Kingmaker.UnitLogic.Mechanics.ContextValueType.Simple,
-                                            Value = 0
-                                        }
+                                        Energy = DamageEnergyType.Fire,
+                                        Type = DamageType.Energy
                                     };
-                                    cadd.Value = new Kingmaker.UnitLogic.Mechanics.ContextDiceValue()
-                                    {
-                                        DiceType = Kingmaker.RuleSystem.DiceType.D6,
-                                        DiceCountValue = new Kingmaker.UnitLogic.Mechanics.ContextValue()
-                                        {
-                                            ValueType = Kingmaker.UnitLogic.Mechanics.ContextValueType.Simple,
-                                            Value = 0
-                                        },
-                                        BonusValue = new Kingmaker.UnitLogic.Mechanics.ContextValue()
-                                        {
-                                            ValueType = Kingmaker.UnitLogic.Mechanics.ContextValueType.Simple,
-                                            Value = 1
-                                        }
-                                    };
+                                    cadd.Duration = ContextDuration.Fixed(0);
+                                    cadd.Value = ContextDice.Value(DiceType.Zero, 0, 0);
                                 })
                             )
                             .AddComponent<AbilityCostPowerpoints>(c => {

@@ -80,7 +80,7 @@ namespace Psionics.Classes
                 .Configure();
             BlueprintCharacterClassReference classref = ClassBlueprint.ToReference<BlueprintCharacterClassReference>();
             BlueprintRoot root = BlueprintTool.Get<BlueprintRoot>("2d77316c72b9ed44f888ceefc2a131f6"); // Blueprint root... yeah.
-            root.Progression.m_CharacterClasses = CommonTool.Append(root.Progression.m_CharacterClasses, classref);
+            //root.Progression.m_CharacterClasses = CommonTool.Append(root.Progression.m_CharacterClasses, classref);
         }
     }
 }

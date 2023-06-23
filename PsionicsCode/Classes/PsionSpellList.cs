@@ -2,6 +2,7 @@
 using BlueprintCore.Blueprints.References;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes.Spells;
+using Psionics.Buffs;
 using Psionics.Powers.Level1;
 using System;
 using System.Collections.Generic;
@@ -30,20 +31,17 @@ namespace Psionics.Classes
                     },
                     new SpellLevelList(1)
                     {
-                        m_Spells = new List<BlueprintAbilityReference>(){
-                            EnergyRay.BlueprintInstance.ToReference<BlueprintAbilityReference>(),
-
-                            AbilityRefs.Snowball.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                            AbilityRefs.Vanish.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                            AbilityRefs.ColorSpray.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                            AbilityRefs.ShockingGraspCast.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                            AbilityRefs.MagicWeapon.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                            AbilityRefs.EarPiercingScream.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                            AbilityRefs.StunningBarrier.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                            AbilityRefs.MageShield.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                            AbilityRefs.CorrosiveTouch.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                            AbilityRefs.ExpeditiousRetreat.Reference.Get().ToReference<BlueprintAbilityReference>(),
-                        }
+                        m_Spells = new []{
+                            Bolt.BlueprintInstance,
+                            Broker.BlueprintInstance,
+                            CircumstanceShield.BlueprintInstance,
+                            CrystalShard.BlueprintInstance,
+                            Deceleration.BlueprintInstance,
+                            Demoralize.BlueprintInstance,
+                            DissipatingTouch.BlueprintInstance,
+                            EnergyRay.BlueprintInstance,
+                            EctoplasmicSheen.BlueprintInstance
+                        }.Select(c=>c.ToReference<BlueprintAbilityReference>()).ToList()
                     }
                 })
                 .Configure();

@@ -110,6 +110,7 @@ namespace Psionics.Powers
         public Augment[] Augments;
         public BlueprintBuff[] Buffs;
         public int BaseCost;
+        public BlueprintAbility Cantrip;
 
         public static int GetRank(UnitEntityData caster, Augment augment)
         {
@@ -154,7 +155,7 @@ namespace Psionics.Powers
 
         public BlueprintAbility[] Configure()
         {
-            Abilities = new BlueprintAbility[Augments.Select(c=>c.MaxRank+1).Sum()];
+            Abilities = new BlueprintAbility[Augments.Select(c=>c.MaxRank+1).Sum() + (Cantrip == null ? 0 : 1)];
             Buffs = new BlueprintBuff[Augments.Select(c => c.MaxRank).Sum()];
             int buffIndex = 0;
             int index = 0;
@@ -212,6 +213,7 @@ namespace Psionics.Powers
                 }
                 augmentIndex++;
             }
+            if (Cantrip != null) Abilities[index] = Cantrip;
             return Abilities;
         }
     }
